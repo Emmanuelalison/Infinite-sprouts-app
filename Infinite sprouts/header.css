@@ -1,0 +1,299 @@
+.icon-container {
+    position: relative;
+    cursor: pointer;
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+}
+
+.icon-container i {
+    font-size: 20px;
+    color: lime;
+}
+/* Dropdown Content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 25px;
+    width: 100%;
+    width: 450px;
+    background: #1f1f1f;
+    border: 1px solid lime;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+.dropdown-content h3 {
+    color: lime;
+    margin-bottom: 10px;
+}
+.icon-container.active .dropdown-content {
+    display: block;
+}
+/* Default styling */
+.search_section {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+.search-bar input {
+    padding: 6px;
+    width: 200px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    border: 1px solid lime;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 0 8px 1px #4e5f4d;
+    background-image: linear-gradient(145deg, #202020, #121212);
+}
+/* Styling for the search icon */
+.search-icon {
+display: flex;
+cursor: pointer;
+font-size: 1.5em;
+color: lime;
+}
+
+/* Hide search bar by default on smaller screens */
+@media (max-width: 600px) {
+.search-bar {
+display: none;
+}
+
+.search-icon {
+display: block;
+}
+}
+
+/*========================
+      SPROUTSLINK HEADER
+ ==========================*/
+.main_sub_heading {
+    width: 100%;
+    padding-right: 4%;
+    display: flex;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    justify-content: space-between;
+    border-bottom: 1px solid #333;
+    }
+.main_sub_heading button {
+    padding: 10px;
+    color: lime;
+    background-color: var(--popup-text-color);
+}
+    
+    .sub_heading_btn.active {
+        background: lime;
+        font-weight: 600;
+        color: black;
+        border-radius: 25px 0 0 0;
+    }
+    
+    .sub_heading_btn {
+        border: var(--border);
+        border-radius: 2px;
+        background-color: black;
+        color: var(--button-text-color);
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed);
+    }
+    .social_section_header {
+        position: sticky;
+        gap: 5px;
+        width: 66%;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        padding: 8px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background: var(--background-color);
+        z-index: 10;
+        border-bottom: var(--border);
+        }
+    .social_btn {
+        color: lime;
+        text-decoration: none;
+        cursor: pointer;
+        display: flex;
+        margin: 0;
+        padding: 6px 15px;
+        transition: all 0.3s ease;
+        border-radius: 15px;
+        /* border: var(--border); */
+        background: #1f1f1f;
+        border: 1px solid lime;
+        }
+    .social_btn.active {
+        background: lime;
+        color: #000000;
+        font-weight: bold;
+        border: 1px solid var(--border);
+    }
+    .social_btn:hover {
+        background: lime;
+        color: #000000;
+        transform: scale(1.05);
+    }
+
+
+    /* Trending section styles */
+.trending {
+    width: 100%;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 4px 6px rgba(0, 255, 0, 0.2);
+    z-index: 1;
+    transition: height 0.4s ease;
+    right: 0;
+    border: var(--border);
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+}
+
+.trending.full-screen {
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    border-radius: 0;
+    box-shadow: 0px 4px 20px rgba(0, 255, 0, 0.3);
+    overflow-y: auto;
+}
+
+/* Trending section header */
+.trending-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: #39ff14;
+    cursor: pointer;
+}
+
+/* Trending title */
+.trending-header h2 {
+    width: 90%;
+    font-size: 22px;
+}
+
+/* Icon container styling */
+.trending-icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.trending-icon-container i {
+    font-size: 18px;
+    color: #39ff14;
+    background-color: #1a1a1a;
+    border: 1px solid #39ff14;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 0 6px 1px lime;
+    transition: transform 0.3s ease;
+}
+
+/* Icon visibility control */
+.up-arrow {
+    display: inline-block;
+}
+
+.down-arrow {
+    display: none;
+}
+
+/* Trending content styling */
+.trending-content {
+    display: none;
+    padding: 15px;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* Show content when expanded */
+.trending.full-screen .trending-content {
+    display: block;
+    opacity: 1;
+}
+
+/* Trending content item styling */
+.trending-content .content-card {
+    background-color: #1a1a1a;
+    color: #39ff14;
+    padding: 10px;
+    border: 1px solid #39ff14;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 255, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.trending-content .content-card:hover {
+    transform: translateY(-3px);
+}
+.trending-content ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.trending-content ul li {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid #c8ff00;
+}
+/* Hot Deals Section - hidden by default */
+.hot-deals {
+    width: 100%;
+    background-color: #1a1a1a;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.hot-deals h2 {
+    color: #39ff14;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.deals-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual deal cards in Hot Deals */
+.deal-card {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    border: 1px solid #39ff14;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.deal-card:hover, .deal-card h3:hover {
+    color: black;
+    background-color: lime;
+    transform: translateY(-5px);
+}
+
+.deal-card h3 {
+    font-size: 16px;
+    color: #39ff14;
+}
+
