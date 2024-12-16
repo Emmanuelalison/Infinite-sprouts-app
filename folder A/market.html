@@ -1,0 +1,2820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="right.css">
+    <link rel="stylesheet" href="market.css"> -->
+
+    <style>
+
+:root {
+    --background-color: #000000;
+    --text-color: #ffffff;
+    --primary-color: lime;
+    --secondary-color: #c8ff00;
+    --button-background: #000000;
+    --button-text-color: lime;
+    --popup-background: #ffffff;
+    --popup-text-color: #000000;
+    --active-color: lime;
+    --danger-color: #ff0000;
+    --message-limit-color: #ff4d4d;
+    --transition-speed: 0.3s;
+    --close-button: red;
+    --sidebar-background: #000000;
+    --sidebar-gradient-1: #000000;
+    --sidebar-gradient-2: #000000;
+    --box-shadow: 2px 2px 4px #2b2b2b, -2px -2px 4px #2b2b2b;
+    --box-shadow-1: 0 0 4px 1px lime;
+    --border: 1px solid #3c3c3c;
+}
+
+body.light-theme {
+    --background-color: #f0f0f0;
+    --text-color: #000000;
+    --primary-color: lime;
+    --secondary-color: #c8ff00;
+    --button-background: #ffffff;
+    --button-text-color: lime
+    --popup-background: #ffffff;
+    --popup-text-color: #ffffff;
+    --active-color: lime;
+    --danger-color: red;
+    --message-limit-color: red;
+    --sidebar-background: #ffffff;
+    --sidebar-gradient-1: #ffffff;
+    --sidebar-gradient-2: #ffffff;
+    --border: 1px solid var(--active-color);
+    --box-shadow: 4px 4px 8px #969393, -4px -4px 8px #a1a1a1;
+}
+
+ /* Responsive styles */
+@media (max-width: 700px) {
+main {
+margin: 0;
+}
+.sidebar.hidden {
+display: none; /* Hide sidebar below 760px */
+}
+
+.menu-btn {
+display: block; /* Show menu button below 760px */
+}
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+main {
+margin-left: 251px;
+}
+#sidebar {
+width: 250px; /* Reduce width to 250px */
+}
+.gm-gn-section {
+background: var(--active-color);
+width: fit-content;
+}
+.Gm_Gn {
+width: fit-content;
+}
+}
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: all var(--transition-speed) ease;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow: hidden;
+    display: flex;
+    height: 100vh;
+}
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(var(--primary-color), var(--secondary-color), var(--primary-color));
+    border-radius: 4px;
+}
+/* Sidebar Styling */
+.sidebar {
+    width: 330px;
+    background-image: linear-gradient(146deg, var(--sidebar-gradient-1), var(--sidebar-gradient-2));
+    padding: 20px;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 2000;
+    border-right:var(--border);
+    background: linear-gradient(145deg, var(--background-color));
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* Main Navigation Links */
+.nav-links {
+    list-style: none;
+}
+
+.sidebar ul {
+    gap: 10px;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s;
+    overflow: hidden;
+    /* border: var(--border); */
+    box-sizing: border-box;
+    background-color: var(--sidebar-background);
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    /* box-shadow: 4px 4px 8px #000000, -4px -4px 8px #2b2b2b; */
+
+}
+
+.sidebar ul li {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar ul li a {
+    gap: 12px;
+    display: flex;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    align-items: center;
+    padding: 8px 15px;
+    font-size: 14px;
+    color: lime;
+    border: 1px solid lime;
+    border-radius: 8px;
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+    box-shadow: var(--box-shadow);
+    transition: background 0.3s, transform 0.3s;
+}
+
+.sidebar ul > li > a > i {
+    color: lime;
+}
+
+.nav-links .nav-link a:hover {
+    background: linear-gradient(130deg, var(--background-color), lime);
+    color: #ffffff;
+    /* transform: scale(1.05); */
+}
+
+.nav-link a.active {
+    color: rgb(255, 255, 255);
+    background: linear-gradient(130deg, var(--background-color), lime);
+}
+
+/* Social Buttons */
+.nav_extension {
+    display: flex;
+    gap: 8px;
+    height: 12%;
+    margin-top: 20px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.social-buttons {
+    width: 100%;
+    display: flex;
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px #000000, -4px -4px 8px #2b2b2b;
+}
+.social-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--button-text-color);
+    background-color: var(--button-background);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color var(--transition-speed), transform var(--transition-speed), color var(--transition-speed);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.social-buttons button:hover {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+.social-buttons .plus-btn {
+    color: var(--text-color);
+    border: var(--border);
+    border-radius: 0 0 15px 15px;
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+}
+.social-buttons .live-btn {
+    border: 1px solid gold;
+    background-color: var(--secondary-color);
+    color: var(--popup-text-color);
+}
+.Logout {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav_extension #LogoutLink {
+    gap: 12px;
+    display: flex;
+    width: 100%;
+    padding: 8px;
+    padding-left: 15px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px #000000, -4px -4px 8px #2b2b2b;
+    align-items: center;
+    color: var(--popup-background);
+    background: var(--close-button);
+    border: 1px solid var(--popup-background);
+}
+/* GM/GN Section */
+.gm-gn-section {
+    width: 100%;
+    gap: 2px;
+    border-radius: 8px;
+    background-color: var(--popup-text-color);
+    box-shadow: var(--box-shadow);
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: var(--border);    transition: all 0.3s ease;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 4px 4px 8px #000000, -4px -4px 8px #2b2b2b;
+}
+.gm-gn-section .gn {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    height: 46px;
+    padding: 5px;
+    border-radius: 12px 0 0 0;
+    align-items: center;
+    justify-content: space-between;
+    background: green;
+    border: 1px solid limegreen;
+}
+.gm-gn-section .gm {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    height: 46px;
+    padding: 5px;
+    border-radius: 0 12px 0 0;
+    padding-right: 8px;
+    align-items: center;
+    justify-content: space-between;
+    background: green;
+    border: 1px solid limegreen;
+}
+.gn i, .gm i {
+    width: 50%;
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.gm h2, .gn h2 {color: var(--text-color);
+    font-size: 12px;
+    width: 50%;
+    color: white;
+}
+.gm-gn-section button:hover {
+    transform: scale(1.05);
+}
+/*====Theme Switch Button===*/
+#theme-switcher {
+    width: 25%;
+    padding: 10px 15px;
+    color: lime;
+    cursor: pointer;
+    border-radius: 50%;
+    border-radius: 4px;
+    text-align: center;
+    background: var(--popup-text-color);
+    cursor: pointer;
+    border-radius: 8px;
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+    box-shadow: var(--box-shadow);
+    border: 1PX solid lime;
+}
+#theme-switcher > i {
+    color: lime;
+}
+#theme-switcher:hover {
+    color: #ffffff;
+    font-weight: 550;
+    border: 1px solid rgb(255, 255, 255);
+}
+/* Menu button */
+.menu-btn {
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    border: 1px solid var(--active-color);
+    cursor: pointer;
+    display: block;
+}
+/* Home Button Styling */
+.home-container {
+position: fixed;
+bottom: 0px;
+    width: 100%;
+    height:54px;
+    text-align: center;
+    background: var(--popup-text-color);
+    display: flex;
+    border-top: 1px solid var(--active-color);
+    justify-content: center;
+    z-index: 500;
+}
+/* Home button */
+.home-btn {
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    display: none;
+    color: lime;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid lime;
+    border-bottom: none;
+    transition: all 0.3s ease;
+    border-radius: 25px 25px 0 0;
+    box-shadow: 4px 4px 8px #000000, -4px -4px 8px #2b2b2b;
+    background: linear-gradient(145deg, #202020, #121212);
+}
+
+/* Close button positioned outside the sidebar */
+.sidebar_close .close-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 30px;
+    cursor: pointer;
+    position: fixed;
+    top: 2px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    border: 1px solid var(--active-color);
+    cursor: pointer;
+    left: 252px; /* 10px away from the sidebar edge */
+    display: none; /* Initially hidden */
+    z-index: 2000;
+}
+/* When the sidebar is open, force the link text to be visible */
+.sidebar.open .link-text {
+    display: inline-block;
+}
+.account-switcher {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.selected-account {
+    display: flex;
+    align-items: center;
+}
+.selected-account img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.dropdown-text {
+    font-size: 16px;
+    font-weight: bold;
+}
+/* Accounts container, initially hidden */
+.accounts-container {
+    display: none;
+    gap: 10px;
+    display: flex;
+    position: absolute;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 80%;
+    z-index: 10; 
+    margin-top: 70px; 
+    border: 1px solid var(--secondary-color);
+    background: var(--button-background);
+    align-items: center;
+    justify-content: center;
+}
+.account {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around; /* Ensure space between elements */
+    padding: 4px;
+    padding-left: 10px;
+    margin: 5px;
+    margin-left: 0;
+    border-radius: 10px;
+    background-color: var(--button-background);
+    border: 1px solid #ffae00;
+    box-shadow: 0 0 6px 2px var(--popup-text-color);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.user_contents {
+    display: flex;
+    gap: 40px;
+}
+.account-switcher h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+/* Dropdown button */
+.account-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 0 6px 2px var(--popup-text-color);
+    cursor: pointer;
+    position: relative;
+    cursor: pointer;
+    border: var(--border);
+    border-radius: 8px;
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+    box-shadow: var(--box-shadow);
+}
+.selected-account {
+    width: 100%;
+    display: flex;
+    padding: 0;
+    justify-content: space-between;
+}
+.selected-account img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid var(--secondary-color);
+}
+.dropdown-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--active-color);
+}
+.arrow {
+    width: 20%;
+    margin: 0;
+    display: flex;
+    color: var(--active-color);
+    font-size: 18px;
+}
+/* Overlay styles */
+.overlay {
+    display: none; /* Hidden by default */
+    position: fixed; /* Cover the whole viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 5; /* Ensure it's below the dropdown but above everything else */
+}
+.account:hover {
+    background-color: var(--secondary-color);
+}
+.account.active {
+    background: var(--secondary-color);
+}
+.account-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.username {
+    font-size: 16px;
+    font-weight: bold;
+}
+.active-check {
+    margin-left: auto;
+    font-size: 18px;
+    color: green;
+    display: none; /* Initially hide the active check */
+}
+.account.active .active-check {
+    display: inline;
+    font-weight: 600;
+    opacity: 1;
+}
+/* Sidebar Overlay Styling */
+.sidebar-overlay {
+display: none;
+position: fixed;
+top: 0;
+right: 0;
+width: 50%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+z-index: 9; /* Make sure it appears behind the sidebar */
+}
+@media (min-width: 760px) {
+.home-container {
+display: none;
+}
+}
+/* Add Post Popup */
+.popup {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    width: 350px;
+    background: var(--background-color);
+    color: var(--popup-text-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 2000;
+    transition: opacity var(--transition-speed), transform var(--transition-speed);
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.popup.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.popup textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.post-attachments {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    margin-right: 90px;
+}
+
+.attachment-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.attachment-btn:hover {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.attachment-options {
+    position: absolute;
+    left: 100%;
+    width: 120px;
+    bottom: 26vh;
+    background-color: var(--background-color);
+    border: 1px solid lime;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    z-index: 1002;
+    transition: opacity var(--transition-speed), transform var(--transition-speed);
+}
+
+.attachment-options.active {
+    display: flex;
+    opacity: 1;
+    transform: translateX(-10px);
+}
+
+.attachment-option {
+    padding: 8px;
+    border: none;
+    border: var(--border);
+    border-radius: 6px;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    cursor: pointer;
+    transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.attachment-option:hover {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.submit-post-btn,
+.cancel-post-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+.submit-post-btn {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.submit-post-btn:hover {
+    background-color: var(--active-color);
+    transform: scale(1.05);
+}
+
+.cancel-post-btn {
+    background-color: var(--danger-color);
+    color: #ffffff;
+}
+
+.cancel-post-btn:hover {
+    background-color: darkred;
+    transform: scale(1.05);
+}
+    /* Support, Notepad, and Notification Styling */
+    .support_div, .notepad_div, .notification-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    }
+    
+    .support, .notepad, #notificationIcon {
+    font-size: 24px;
+    color: var(--secondary-color);
+    transition: color var(--transition-speed);
+    }
+    .support_div li {
+        text-decoration: none;
+        list-style: none;
+        color: lime;
+    }
+    /* Individual Icon Styling */
+    .support:hover, .notepad:hover, #notificationIcon:hover {
+    color: var(--highlight-color);
+    }
+    
+    /* Notification Container Specific Styles */
+    .notification-container {
+    position: relative;
+    }
+    
+    .notification-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--dropdown-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .notification-container:hover .notification-dropdown {
+    display: block;
+    }
+    
+    /* Notification Item Styling */
+    .notification-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    }
+    
+    .notification-item i {
+    margin-right: 10px;
+    color: var(--icon-color);
+    }
+    
+    .notification-item span {
+    color: var(--text-color);
+    }
+    
+    /* Media Queries for Responsive Design */
+    @media (max-width: 600px) {
+    .icon-group {
+    flex-direction: row;
+    gap: 10px;
+    }
+    .search-bar input {
+    width: 40%;
+    }
+    }
+    
+    .notification-container .fa-bell:hover {
+        color: var(--secondary-color);
+    }
+    
+    .notification-dropdown {
+        position: absolute;
+        top: 40px;
+        right: 0;
+        width: 300px;
+        background-color: var(--popup-background);
+        color: var(--popup-text-color);
+        border: 1px solid lime;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        display: none;
+        flex-direction: column;
+        gap: 20px;
+        z-index: 1000;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    .notification-dropdown.active {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .notification-dropdown h3 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .order-filter_container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .order-filter {
+        flex: 1 1 calc(50% - 10px);
+        padding: 8px 12px;
+        border: 1px solid lime;
+        border-radius: 6px;
+        background-color: var(--button-background);
+        color: var(--primary-color);
+        cursor: pointer;
+        font-size: 14px;
+        text-align: center;
+        transition: background-color var(--transition-speed), color var(--transition-speed);
+    }
+    
+    .order-filter:hover,
+    .order-filter.active {
+        background-color: var(--primary-color);
+        color: var(--background-color);
+    }
+    
+    .notifications-content {
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+    
+    .notifications-group {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        color: var(--text-color);
+    }
+    
+    .notifications-group.active {
+        display: flex;
+    }
+    
+    .notification-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: var(--button-background);
+        transition: background-color var(--transition-speed), color var(--transition-speed);
+        border: 1px solid var(--primary-color);
+        animation: fadeInUp 0.3s ease;
+    }
+    
+    .notification-item:hover {
+        background-color: var(--secondary-color);
+        color: #ffffff;
+    }
+    
+    .notification-item i {
+        color: var(--primary-color);
+        flex-shrink: 0;
+        font-size: 20px;
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .icon-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background: var(--popup-text-color);
+    }
+    .icon-container {
+        padding: 6px;
+        font-size: 18px;
+        border-radius: 12px;
+        border: var(--border);
+    }
+        /* .icon-group > div {
+        position: relative;
+        }
+         */
+        .support_div, .notepad_div, .notification-container, .chat-bot {
+        cursor: pointer;
+        }
+        
+        .close-btn {
+        background-color: transparent;
+        border: none;
+        color: var(--text-color);
+        font-size: 20px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        }
+        
+        .notepad-header {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        }
+        
+        #allNotesSection .note-card {
+        background-color: var(--button-background);
+        padding: 10px;
+        margin: 5px 0;
+        width: 100%;
+        border-radius: 5px;
+        transition: transform var(--transition-speed), background-color var(--transition-speed);
+        }
+        
+        .note-card:hover {
+        transform: scale(1.02);
+        background-color: var(--active-color);
+        }
+        
+        .note-card button {
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        border: none;
+        padding: 5px;
+        margin-left: 10px;
+        cursor: pointer;
+        }
+        
+        .chat-bot {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        background-color: var(--button-background);
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .chat-bot-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: var(--primary-color);
+        border-radius: 8px 8px 0 0;
+        }
+        
+        .chat-bot-content {
+        padding: 15px;
+        }
+        
+        .chat-bot-content input {
+        width: calc(100% - 70px);
+        padding: 10px;
+        border: 1px solid var(--accent-color);
+        border-radius: 5px;
+        margin-right: 10px;
+        }
+        
+        .chat-bot-content button {
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        }
+        
+        @keyframes fadeIn {
+        from {
+        opacity: 0;
+        transform: translateY(-10px);
+        }
+        to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+        }
+        /* Dropdown Styling */
+        .support-dropdown, .notepad-dropdown, .notification-dropdown {
+        display: none;
+        position: absolute;
+        top: 44px;
+        right: 0;
+        display: flex;
+        width: 50vh;
+        height: 60vh;
+        background: var(--background-color);
+        color: lime;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        opacity: 0;
+        transition: transform 0.3s, opacity 0.3s;
+        }
+        @media (max-width:900px) {
+        .support-dropdown, .notepad-dropdown, .notification-dropdown {
+        width: 450px;
+        }
+        }
+        @media (max-width:800px) {
+        .support-dropdown, .notepad-dropdown, .notification-dropdown {
+        width: 320px;
+        }
+        }
+        @media (max-width:680px) {
+        .support-dropdown, .notepad-dropdown, .notification-dropdown {
+        width: 300px;
+        }
+        }
+        @media (max-width:540px) {
+        .support-dropdown, .notepad-dropdown, .notification-dropdown {
+        width: 250px;
+        }
+        }
+        @media (max-width:400px) {
+        .support-dropdown, .notepad-dropdown, .notification-dropdown {
+        width: 200px;
+        }
+        }
+        @media (max-width:300px) {
+        .support-dropdown, .notepad-dropdown, .notification-dropdown {
+        width: 150px;
+        }
+        }
+        /* Show dropdown */
+        .support-dropdown.show, .notepad-dropdown.show, .notification-dropdown.show {
+        display: block;
+        transform: translateY(0);
+        opacity: 1;
+        }
+        /* Close Button */
+        main .close-button {
+        background-color: transparent;
+        border: none;
+        color: #000000;
+        cursor: pointer;
+        float: right;
+        font-size: 20px;
+        }
+
+        /* Close button styling */
+        main .close-button {
+        background: var(--danger-color);
+        border: none;
+        color: white;
+        padding: 5px;
+        cursor: pointer;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 16px;
+        border-radius: 50%;
+        transition: background var(--transition-speed);
+        }    
+/* ===================
+END OF  SIDEBAR
+=================== */
+
+.right_section {
+    width: 350px;
+    background-color: var(--background-color);
+    padding: 10px;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    z-index: 1000;
+}
+/* Trending section styles */
+.trending {
+    width: 100%;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 4px 6px rgba(0, 255, 0, 0.2);
+    z-index: 1;
+    transition: height 0.4s ease;
+    right: 0;
+    border: var(--border);
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+}
+
+.trending.full-screen {
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    border-radius: 0;
+    box-shadow: 0px 4px 20px rgba(0, 255, 0, 0.3);
+    overflow-y: auto;
+}
+
+/* Trending section header */
+.trending-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: #39ff14;
+    cursor: pointer;
+}
+
+/* Trending title */
+.trending-header h2 {
+    width: 90%;
+    font-size: 22px;
+}
+
+/* Icon container styling */
+.trending-icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.trending-icon-container i {
+    font-size: 18px;
+    color: #39ff14;
+    background-color: #1a1a1a;
+    border: 1px solid #39ff14;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 0 6px 1px lime;
+    transition: transform 0.3s ease;
+}
+
+/* Icon visibility control */
+.up-arrow {
+    display: inline-block;
+}
+
+.down-arrow {
+    display: none;
+}
+
+/* Trending content styling */
+.trending-content {
+    display: none;
+    padding: 15px;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* Show content when expanded */
+.trending.full-screen .trending-content {
+    display: block;
+    opacity: 1;
+}
+
+/* Trending content item styling */
+.trending-content .content-card {
+    background-color: #1a1a1a;
+    color: #39ff14;
+    padding: 10px;
+    border: 1px solid #39ff14;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 255, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.trending-content .content-card:hover {
+    transform: translateY(-3px);
+}
+.trending-content ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.trending-content ul li {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid #c8ff00;
+}
+/* Hot Deals Section - hidden by default */
+.hot-deals {
+    width: 100%;
+    background-color: #1a1a1a;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.hot-deals h2 {
+    color: #39ff14;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.deals-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual deal cards in Hot Deals */
+.deal-card {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    border: 1px solid #39ff14;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.deal-card:hover, .deal-card h3:hover {
+    color: black;
+    background-color: lime;
+    transform: translateY(-5px);
+}
+
+.deal-card h3 {
+    font-size: 16px;
+    color: #39ff14;
+}
+
+
+.charts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    background-color: #1e1e1e;
+    width: 100%;
+    height: 80vh;
+    border-radius: 0 0 12px 12px;
+}
+.chart {
+    width: 300px;
+    height: 35vh;
+    background-color: #2a2a2a;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.chart h3 {
+    text-align: center;
+    margin-bottom: 5px;
+    color: lime;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+/* Default styling
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    padding-bottom: 0;
+    width: 300px;
+}
+.search-bar input {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    border: 2px solid lime;
+    border-radius: 8px 0 0 8px;
+    color: white;
+    box-shadow: 0 0 8px 1px #4e5f4d;
+    background-image: linear-gradient(145deg, #202020, #121212);
+}
+
+.search-bar button {
+    padding: 10px 12px;
+    background: lime;
+    color: var(--button-background);
+    border: none;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+} */
+
+.nav-links .submenu {
+    display: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px;
+}
+
+.nav-link.active .submenu {
+    display: block;
+}
+
+.submenu a.active {
+    font-weight: bold;
+    color: #4caf50; /* Active color */
+}
+
+.nav-link a {
+    color: #333;
+    text-decoration: none;
+}
+
+.nav-link.active > a {
+    font-weight: bold;
+    color: #4caf50;
+}
+
+
+/* Responsive Design */
+@media (max-width: 1000px) {
+    .right_section {
+        display: none; /* Hide right section */
+    }
+
+    main {
+        margin-left: 250px;
+        margin-right: 250px;
+    }
+
+}
+
+@media (max-width: 800px) {
+    .sidebar {
+        display: none; /* Hide sidebar at half-screen width */
+    }
+
+    .main-section {
+        margin-left: 0;
+    }
+}
+
+
+.icon-container i {
+    font-size: 20px;
+    color: lime;
+}
+        .sidebar {
+    width: 300px;
+    background-image: linear-gradient(146deg, var(--sidebar-gradient-1), var(--sidebar-gradient-2));
+    padding: 20px;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 2000;
+    border-right:var(--border);
+    background: linear-gradient(145deg, var(--background-color));
+}
+main {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    margin-left: 310px;
+    margin-right: 360px;
+    box-sizing: border-box;
+    padding-bottom: 5px;
+    flex-direction: column;
+}
+  /* Hero Section */
+  .hero {
+    display: flex;
+    height: 60vh;
+    flex-direction: column;
+    background-image: url('/Assets/AI\ for\ sustainable\ farmig.jpeg');
+    background-size: cover;
+    background-position: center;
+    padding: 60px 40px;
+    padding-top: 20px;
+    text-align: center;
+    color: white;
+}
+.hero h1 {
+    font-size: 48px;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.hero button {
+    background-color: lime;
+    color: black;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hero button:hover {
+    background-color: #3bd500;
+}
+
+/* Categories Section */
+.category-section {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.category {
+    margin: 0 15px;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+}
+
+.category:hover {
+    color: lime;
+}
+
+/* Product Grid Section */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+
+}
+
+.product-card {
+    border-radius: 5px;
+    padding: 10px;
+    height: 300px;
+    width: calc(25% - 15px);
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: var(--border);
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+.product-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.product-name {
+    font-size: 16px;
+    margin: 10px 0;
+}
+.product-price {
+    color: lime;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.product-rating {
+    color: #ffc107;
+}
+/* Pagination */
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+.active {
+padding: 10px;
+border-radius: 10px;
+}
+.pagination button {
+    background-color: lime;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.center_content {
+    padding: 0;
+    border-radius: 12px;
+    height: 90vh;
+    border: var(--border);
+    z-index: 1001;
+    overflow-y: auto;
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+}
+.modal-content {
+    height: 90vh;
+    padding: 20px;
+    padding-top: 5px;
+    border-radius: 12px;
+}
+.modal-header {
+    width: 100%;
+    text-align: center;
+    color: #00ff00;
+    font-size: 38px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #00ff00;
+}
+.form-container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    
+}
+.crypto-receive-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Form Group Styling */
+.form-group {
+    display: flex;
+    margin-bottom: 25px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: lime;
+}
+
+.form-group input, .form-group select {
+    width: 50%;
+    padding: 14px;
+    border: var(--border);
+    border-radius: 12px;
+    background: #111111;
+    color: #ffffff;
+    font-size: 1em;
+    outline: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus, .form-group select:focus {
+    background: #252525;
+}
+
+/* 3D Copy Button */
+.submit-btn {
+    background: var(--background-color, #333);
+    border: 1px solid lime;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 40px;
+    box-shadow: 0px 8px 20px rgba(0, 255, 128, 0.4);
+}
+
+/* Styling the Textarea */
+.form-group textarea {
+    width: 70%;
+    height: 200px;
+    background-color: #000000; /* Dark background */
+    color: limegreen; /* Lime text for contrast */
+    border: 2px solid limegreen; /* Lime border */
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    resize: vertical; /* Allow resizing vertically */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Placeholder Styling */
+.form-group textarea::placeholder {
+    color: rgba(0, 255, 0, 0.6); /* Lime with transparency */
+    font-style: italic;
+}
+
+/* Focus Effect for Textarea */
+.form-group textarea:focus {
+    outline: none;
+    border-color: #00ff00; /* Brighter lime on focus */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Glow effect */
+}
+
+.submit-btn:hover {
+    background: #1e1e1e;
+    box-shadow: 0px 8px 20px rgba(0, 255, 128, 0.4);
+    transform: translateY(-3px);
+}
+.active {
+    background-color: red;
+}
+button {
+    background: lime;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.cart-icon {
+    cursor: pointer;
+    font-size: 18px;
+    color: lime;
+    padding: 6px;
+    border-radius: 12px;
+    border: var(--border);
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+}
+#cart-section {
+    top: 8vh;
+    position: fixed;
+    height: 90vh;
+    width: 49%;
+    z-index: 2001;
+    background-color: #181616;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+}
+#cart-section.active {
+    transform: translateY(0);
+}
+#cart-section h3 {
+    text-align: center;
+    margin: 15px 0;
+    color: #00ff00;
+    z-index: 2010;
+}
+#cart-items {
+    list-style: none;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 0;
+    z-index: 2010;
+}
+#cart-items li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    z-index: 2010;
+}
+.product-grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.product-card {
+    display: flex;
+    border-radius: 5px;
+    padding: 10px;
+    width: 23%;
+    text-align: center;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.product-card img {
+    max-width: 100%;
+    height: auto;
+}
+.add-to-cart-button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: lime;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.close-cart-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border-radius: 8px;
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #000000;
+    border: 1px solid #333;
+}
+.close-cart-button:hover {
+    color: darkred;
+}
+.clearCart {
+    display: flex;
+    border-radius: 8px;
+}
+
+
+
+main {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    margin-left: 320px;
+    margin-right: 360px;
+    box-sizing: border-box;
+    padding-bottom: 5px;
+    flex-direction: column;
+}
+main {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    padding-bottom: 5px;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+.center_section_header {
+    width: 100%;
+    gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px;
+}
+
+.center_content {
+    margin: 0;
+    border: var(--border);
+    padding: 20px;
+    padding-top: 5px ;
+    height: 90vh;
+    overflow: hidden;
+    overflow-y: auto;
+    border-radius: 15px 0 0 15px;
+}
+
+
+.icon-container {
+    position: relative;
+    cursor: pointer;
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+}
+
+.icon-container i {
+    font-size: 20px;
+    color: lime;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.header-button {
+    padding: 0.5rem 1rem;
+    color: #d4f0bb;
+    background: linear-gradient(145deg, #202020, #121212);
+    border: var(--border);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header-button.active {
+    background: lime;
+    font-weight: 600;
+    color: black;
+}
+
+.header-button:hover {
+    background-color: lime;
+    color: black;
+}
+
+.center_content.section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.history-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.history-sub-button {
+    padding: 0.4rem 0.8rem;
+    color: #d4f0bb;
+    background: none;
+    border: 2px solid #d4f0bb;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.history-sub-button.active {
+    background-color: limegreen;
+    color: black;
+}
+
+.hidden {
+    display: none;
+}
+
+.center_content {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.center_content.section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Style for the history table */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.history-table th,
+.history-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #444;
+}
+
+.history-table th {
+    background-color: #333;
+    color: lime;
+}
+
+.history-table td {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Placeholder row styling */
+.placeholder-row {
+    text-align: center;
+    color: #888;
+}
+
+/* Hide rows by default */
+.history-row.hidden {
+    display: none;
+}
+
+/* Show active rows */
+.history-row.active {
+    display: table-row;
+}
+
+/* Sub-buttons styling */
+.history-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.history-sub-button {
+    padding: 10px 15px;
+    background-color: #222;
+    border: 1px solid lime;
+    color: lime;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.history-sub-button:hover {
+    background-color: lime;
+    color: black;
+}
+
+.history-sub-button.active {
+    background-color: lime;
+    color: black;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 25px;
+    width: 100%;
+    width: 450px;
+    background: #1f1f1f;
+    border: 1px solid lime;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+.dropdown-content h3 {
+    color: lime;
+    margin-bottom: 10px;
+}
+.icon-container.active .dropdown-content {
+    display: block;
+}
+/* Additional Styling */
+.chat-item,
+.notification-item {
+    padding: 5px 0;
+    border-bottom: 1px solid #333;
+}
+.chat-item:last-child,
+.notification-item:last-child {
+    border-bottom: none;
+}
+.chat-item p {
+    margin: 0;
+    font-size: 14px;
+}
+/* Notepad Dropdown Styling */
+#notepadDropdown {
+    padding: 15px;
+    border-radius: 8px;
+    width: 300px;
+    background-color: #2c2c2c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+}
+#notepadDropdown h3 {
+    margin-bottom: 10px;
+    color: lime;
+}
+#notepadDropdown textarea,
+#notepadDropdown input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid lime;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 14px;
+}
+#notepadDropdown .note-actions button {
+    padding: 10px;
+    margin: 5px;
+    background-color: lime;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#notepadDropdown .note-actions button:hover {
+    background-color: #aad576;
+}
+#notepadDropdown .tags-section {
+    margin-top: 10px;
+}
+#notepadDropdown .tags-section input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid lime;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 14px;
+}
+#notepadDropdown .notes-list {
+    margin-top: 20px;
+}
+
+#notepadDropdown #searchNotes {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid lime;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+#notepadDropdown ul {
+    list-style: none;
+    padding: 0;
+}
+
+#notepadDropdown ul li {
+    background-color: #2c2c2c;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    color: lime;
+    cursor: pointer;
+}
+
+#notepadDropdown ul li:hover {
+    background-color: #1a1a1a;
+}
+
+.close-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.close-button:hover {
+    background-color: #a10000;
+}
+
+    </style>
+
+</head>
+    <!-- Close Button outside the sidebar -->
+<div class="sidebar_close">
+    <button class="close-btn" id="closeSidebarBtn">&times;</button>
+</div>
+    <!-- Sidebar Section -->
+    <nav class="sidebar" id="sidebar">
+        <div class="account-switcher">
+            <div class="account-dropdown" onclick="toggleDropdown()">
+                <div class="selected-account">
+                   <img src="Assets/NFT sneak peak...3.jpg" alt="User 1" id="selectedAccountImg">
+                   <span class="dropdown-text" id="selectedAccountName">User 1</span>
+                </div>
+                <span class="arrow">&#x25BC;</span> <!-- Down arrow -->
+            </div>
+            <div class="accounts-container" id="accountsContainer">
+            <!-- Account 1 -->
+            <div class="account active" id="account1" onclick="switchAccount('account1', 'User 1', 'Assets/NFT sneak peak...3.jpg')">
+                <img src="Assets/NFT sneak peak...3.jpg" alt="User 1" class="account-img">
+                <div class="user_contents">
+                    <span class="username">User 1</span>
+                    <span class="active-check" id="check1">&#10003;</span>
+                </div>
+            </div>
+            <!-- Account 2 -->
+            <div class="account" id="account2" onclick="switchAccount('account2', 'User 2', 'Assets/NFT sneak peak...4.jpg')">
+                <img src="Assets/NFT sneak peak...4.jpg" alt="User 2" class="account-img">
+                <div class="user_contents">
+                    <span class="username">User 2</span>
+                    <span class="active-check" id="check2">&#10003;</span>
+                </div>
+            </div>
+            <!-- Account 3 -->
+            <div class="account" id="account3" onclick="switchAccount('account3', 'User 3', 'Assets/NFT sneak peak...5.jpg')">
+                <img src="Assets/NFT sneak peak...5.jpg" alt="User 3" class="account-img">
+                <div class="user_contents">
+                    <span class="username">User 3</span>
+                <span class="active-check" id="check3">&#10003;</span>
+                </div>
+            </div>
+        </div>
+        <!-- Theme Switcher -->
+        <button id="theme-switcher" class="theme-switcher" aria-label="Toggle Theme">
+            <i class="fas fa-moon"></i> Dark
+        </button>
+        </div>
+        <div class="overlay" id="overlay" onclick="closeDropdown()"></div> <!-- Overlay div -->
+        <!-- Navigation Links -->
+        <ul class="nav-links">
+            <li class="nav-link">
+                <a href="sproutslink.html" id="sproutsLink">
+                    <i class="fas fa-link"></i>
+                    <span class="link-text">SPROUTSLINK</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="message.html" id="sproutsLink">
+                    <i class="fas fa-link"></i>
+                    <span class="link-text">MESSAGES( )</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="market.html" id="marketLink">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="link-text">SPROUTS MARKET</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="staking.html" id="homeLink">
+                    <i class="fas fa-home"></i>
+                    <span class="link-text">SPROUTS STAKE</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="Farm.html" id="servicesLink">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span class="link-text">SPROUTS FARM</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="Wallet.html" id="walletLink">
+                    <i class="fas fa-wallet"></i>
+                    <span class="link-text">SPROUTS WALLET</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="#" id="walletLink">
+                    <i class="fas fa-wallet"></i>
+                    <span class="link-text">SPROUTS LABS</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="#" id="settingsLink">
+                    <i class="fas fa-cog"></i>
+                    <span class="link-text">PROFILE</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="settings.html" id="settingsLink">
+                    <i class="fas fa-cog"></i>
+                    <span class="link-text">SETTINGS</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Additional Sidebar Elements -->
+        <div class="nav_extension">
+            <div class="gm-gn-section" id="Gm_Gn">
+                    <div class="gn">
+                       <i class="fas fa-moon"></i><h2>GN</h2>
+                    </div>
+                    <div class="gm">
+                       <i class="fas fa-sun"></i><h2>GM</h2>
+                    </div>
+            </div>
+
+            <!-- Social Buttons -->
+            <div class="social-buttons">
+                <button id="addPostBtn" class="plus-btn" aria-label="Add Post">
+                    <i class="fas fa-plus"></i> Post
+                </button>
+            </div>
+        </div>
+        <!-- New Sidebar Overlay -->
+        <div class="overlay-sidebar" id="overlaySidebar"></div>
+        <!-- Add Post Popup -->
+    <div class="popup" id="postPopup">
+        <textarea id="postText" placeholder="What's on your mind?"></textarea>
+        <div class="post-attachments">
+            <button id="attachmentBtn" class="attachment-btn"><i class="fas fa-paperclip"></i> Attach</button>
+            <div class="attachment-options" id="attachmentOptions">
+                <button class="attachment-option"><i class="fas fa-image"></i> Image</button>
+                <button class="attachment-option"><i class="fas fa-video"></i> Video</button>
+                <button class="attachment-option"><i class="fas fa-microphone"></i> Audio</button>
+                <button class="attachment-option"><i class="fas fa-file-alt"></i> Document</button>
+            </div>
+        </div>
+        <div class="popup-actions">
+            <button id="submitPost" class="submit-post-btn">Post</button>
+            <button id="cancelPost" class="cancel-post-btn">Cancel</button>
+        </div>
+    </div>
+    <!-- Go Live Popup -->
+    <div class="go-live-popup" id="goLivePopup" style="display: none;">
+        <button class="live-option" id="audioLiveBtn"><i class="fas fa-microphone"></i> Audio</button>
+        <button class="live-option" id="videoLiveBtn"><i class="fas fa-video"></i> Video</button>
+        <div class="go-live-options" id="goLiveOptions">
+            <button id="proceedLive" class="proceed-btn">Proceed</button>
+            <button id="cancelLive" class="cancel-btn">Cancel</button>
+        </div>
+    </div>
+    </nav>
+
+    <!-- Home Button Wrapper -->
+    <div class="home-container">
+       <button class="home-btn" id="homeBtn">Home</button>
+    </div>
+    <main>
+        <!-- Main Center Section -->
+        <section class="center_section">
+            <!-- Center Section Header -->
+            <div class="center_section_header">
+                <!-- Main Navigation Buttons (Wallet Home, Asset, History) -->
+                <div class="header-buttons">
+                    <button class="header-button active" id="btnHome" onclick="showSection('home')">Market</button>
+                    <button class="header-button" id="btnAsset" onclick="showSection('asset')">List item</button>
+                    <button class="header-button" id="btnHistory" onclick="showSection('history')">History</button>
+                </div>
+                                
+                <!-- Shopping Cart Section -->
+                <div id="cart-section" class="cart">
+                    <h3>Shopping Cart</h3>
+                    <button class="close-cart-button" onclick="closeCart()">
+                        <i class="fas fa-times"></i>
+                    </button>                    <ul id="cart-items"></ul>
+                    <button class="clearCart" onclick="clearCart()">Clear Cart</button>
+                </div>
+                <div id="overlay" class="hidden" onclick="closeCart()"></div>
+                <!-- Icon Group (Messages, Notifications, Support, Notepad) -->
+                <div class="icon-group">
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span>
+                    </div>
+                    <!-- Notifications Icon -->
+                    <div class="icon-container" data-dropdown="notifications">
+                        <i class="fas fa-bell"></i>
+                        <div class="dropdown-content" id="notifications">
+                            <h3>Notifications</h3>
+                            <div class="notification-item">
+                                <p>Your profile has been updated successfully.</p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Support Icon -->
+                    <div class="icon-container" data-dropdown="support">
+                        <i class="fas fa-headset"></i>
+                        <div class="dropdown-content" id="support">
+                            <h3>Support</h3>
+                            <p>Reach us at support@domain.com.</p>
+                        </div>
+                    </div>
+            
+                    <!-- Notepad Icon -->
+                    <div class="icon-container" data-dropdown="notepad">
+                        <i class="fas fa-edit" id="notepadIcon"></i>
+                        <div class="dropdown-content" id="notepadDropdown">
+                            <button class="close-button">✖</button>
+                            <h3>Notepad</h3>
+                            
+                            <!-- Note Management Panel -->
+                            <div class="note-management">
+                                <input type="text" id="noteTitle" placeholder="Title your note" />
+                                <textarea id="noteContent" placeholder="Write your note here..." rows="5"></textarea>
+                                <div class="note-actions">
+                                    <button id="saveNoteBtn">Save Note</button>
+                                    <button id="editNoteBtn" style="display: none;">Edit Note</button>
+                                    <button id="deleteNoteBtn" style="display: none;">Delete Note</button>
+                                </div>
+                            </div>
+            
+                            <!-- Tagging Section -->
+                            <div class="tags-section">
+                                <input type="text" id="noteTags" placeholder="Add tags (comma separated)" />
+                            </div>
+            
+                            <!-- Notes List and Search -->
+                            <div class="notes-list">
+                                <input type="text" id="searchNotes" placeholder="Search notes..." />
+                                <ul id="notesList"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- Main Content Sections -->
+<div class="content-sections">
+    <!-- Home Section (Default) -->
+    <div class="center_content section active" id="home">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Buy Fresh Organic Agricultural Products</h1>
+            <p>Farm-fresh produce delivered directly to your doorstep.</p>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="category-section">
+            <div class="category active" onclick="filterProducts('all')">All Products</div>
+            <div class="category" onclick="filterProducts('fruits')">Fruits</div>
+            <div class="category" onclick="filterProducts('vegetables')">Vegetables</div>
+            <div class="category" onclick="filterProducts('spices')">Spices</div>
+            <div class="category" onclick="filterProducts('grains')">Grains</div>
+        </div>
+
+        <!-- Product Grid Section -->
+        <div class="product-grid" id="productGrid">
+            <!-- 12 Product Cards -->
+            <!-- Fruit Products -->
+            <div class="product-card fruits" data-type="fruits">
+                <img src="assets/The Rise of Robotics in Agriculture.jpeg" alt="Organic Ginger" class="product-image">
+                <h3 class="product-name">Organic Ginger</h3>
+                <p class="product-price">0.5 ETH</p>
+                <div class="product-rating">★★★★☆</div>
+                <button class="add-to-cart-button" onclick="addToCart('Organic Ginger', 0.5, 'fruits')">Add to Cart</button>
+            </div>
+
+            <div class="product-card fruits" data-type="fruits">
+                <img src="Assets/NFT sneak peak...3.jpg" alt="Organic Apples" class="product-image">
+                <h3 class="product-name">Organic Apples</h3>
+                <p class="product-price">0.3 ETH</p>
+                <div class="product-rating">★★★★☆</div>
+                <button class="add-to-cart-button" onclick="addToCart('Organic Apples', 0.3, 'fruits')">Add to Cart</button>
+            </div>
+
+            <div class="product-card fruits" data-type="fruits">
+                <img src="assets/The Rise of Robotics in Agriculture.jpeg" alt="Organic Ginger" class="product-image">
+                <h3 class="product-name">Fresh Oranges</h3>
+                <p class="product-price">0.4 ETH</p>
+                <div class="product-rating">★★★★★</div>
+                <button class="add-to-cart-button" onclick="addToCart('Fresh Oranges', 0.4, 'fruits')">Add to Cart</button>
+            </div>
+
+            <div class="product-card fruits" data-type="fruits">
+                <img src="assets/The Rise of Robotics in Agriculture.jpeg" alt="Organic Ginger" class="product-image">
+                <h3 class="product-name">Fresh Bananas</h3>
+                <p class="product-price">0.2 ETH</p>
+                <div class="product-rating">★★★★☆</div>
+                <button class="add-to-cart-button" onclick="addToCart('Fresh Bananas', 0.2, 'fruits')">Add to Cart</button>
+            </div>
+
+            <!-- Vegetable Products -->
+            <div class="product-card vegetables" data-type="vegetables">
+                <img src="assets/The Rise of Robotics in Agriculture.jpeg" alt="Organic Ginger" class="product-image">
+                <h3 class="product-name">Fresh Tomatoes</h3>
+                <p class="product-price">0.1 ETH</p>
+                <div class="product-rating">★★★★★</div>
+                <button class="add-to-cart-button" onclick="addToCart('Fresh Tomatoes', 0.1, 'vegetables')">Add to Cart</button>
+            </div>
+
+            <div class="product-card vegetables" data-type="vegetables">
+                <img src="Assets/broiler pack.jpeg" alt="Cucumbers" class="product-image">
+                <h3 class="product-name">Cucumbers</h3>
+                <p class="product-price">0.15 ETH</p>
+                <div class="product-rating">★★★★☆</div>
+                <button class="add-to-cart-button" onclick="addToCart('Cucumbers', 0.15, 'vegetables')">Add to Cart</button>
+            </div>
+
+            <div class="product-card vegetables" data-type="vegetables">
+                <img src="Assets/Bank banner-ezgif.com-resize.gif" alt="Fresh Spinach" class="product-image">
+                <h3 class="product-name">Fresh Spinach</h3>
+                <p class="product-price">0.2 ETH</p>
+                <div class="product-rating">★★★★☆</div>
+                <button class="add-to-cart-button" onclick="addToCart('Fresh Spinach', 0.2, 'vegetables')">Add to Cart</button>
+            </div>
+
+            <div class="product-card vegetables" data-type="vegetables">
+                <img src="Assets/AI in Agriculture.jpeg" alt="Carrots" class="product-image">
+                <h3 class="product-name">Carrots</h3>
+                <p class="product-price">0.18 ETH</p>
+                <div class="product-rating">★★★★★</div>
+                <button class="add-to-cart-button" onclick="addToCart('Carrots', 0.18, 'vegetables')">Add to Cart</button>
+            </div>
+
+            <!-- Spices Products -->
+            <div class="product-card spices" data-type="spices">
+                <img src="Assets/AI in agriculture.2.jpeg" alt="Natural Honey" class="product-image">
+                <h3 class="product-name">Natural Honey</h3>
+                <p class="product-price">0.2 ETH</p>
+                <div class="product-rating">★★★★★</div>
+                <button class="add-to-cart-button" onclick="addToCart('Natural Honey', 0.2, 'spices')">Add to Cart</button>
+            </div>
+
+            <div class="product-card spices" data-type="spices">
+                <img src="Assets/AI for Sustainable Pest Control in Organic Agriculture.jpeg" alt="Organic Turmeric" class="product-image">
+                <h3 class="product-name">Organic Turmeric</h3>
+                <p class="product-price">0.25 ETH</p>
+                <div class="product-rating">★★★★☆</div>
+                <button class="add-to-cart-button" onclick="addToCart('Organic Turmeric', 0.25, 'spices')">Add to Cart</button>
+            </div>
+
+            <div class="product-card spices" data-type="spices">
+                <img src="Assets/AI for sustainable farmig.jpeg" alt="Black Pepper" class="product-image">
+                <h3 class="product-name">Black Pepper</h3>
+                <p class="product-price">0.15 ETH</p>
+                <div class="product-rating">★★★★★</div>
+                <button class="add-to-cart-button" onclick="addToCart('Black Pepper', 0.15, 'spices')">Add to Cart</button>
+            </div>
+
+            <div class="product-card spices" data-type="spices">
+                <img src="Assets/Abstract_green.jpeg" alt="Cinnamon Sticks" class="product-image">
+                <h3 class="product-name">Cinnamon Sticks</h3>
+                <p class="product-price">0.12 ETH</p>
+                <div class="product-rating">★★★★☆</div>
+                <button class="add-to-cart-button" onclick="addToCart('Cinnamon Sticks', 0.12, 'spices')">Add to Cart</button>
+            </div>
+
+            <!-- Grains Products -->
+            <div class="product-card grains" data-type="grains">
+                <img src="Assets/abstract_black.jpeg" alt="Whole Wheat" class="product-image">
+                <h3 class="product-name">Whole Wheat</h3>
+                <p class="product-price">0.15 ETH</p>
+                <div class="product-rating">★★★★☆</div>
+                <button class="add-to-cart-button" onclick="addToCart('Whole Wheat', 0.15, 'grains')">Add to Cart</button>
+            </div>
+
+            <div class="product-card grains" data-type="grains">
+                <img src="Assets/3608788.jpg" alt="Brown Rice" class="product-image">
+                <h3 class="product-name">Brown Rice</h3>
+                <p class="product-price">0.18 ETH</p>
+                <div class="product-rating">★★★★★</div>
+                <button class="add-to-cart-button" onclick="addToCart('Brown Rice', 0.18, 'grains')">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+            </div>
+    
+            <!-- Asset Section -->
+            <div class="center_content section hidden" id="asset">
+                <div class="modal-content">
+                    <div class="modal-header">List Your Item</div>
+                    <div class="form-group">
+                        <label for="item-name">Item Name</label>
+                        <input type="text" id="item-name" placeholder="Enter item name">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" id="price" placeholder="Enter price">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" placeholder="Enter quantity">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" placeholder="Describe the item"></textarea>
+                    </div>
+                    <button class="submit-btn">Submit</button>
+                </div>           
+            </div>
+    
+            <!-- History Section -->
+            <div class="center_content section hidden" id="history">
+                <!-- History Filter Buttons -->
+                <div class="history-buttons">
+                    <button class="history-sub-button active" onclick="filterHistory('all')">ALL</button>
+                    <button class="history-sub-button" onclick="filterHistory('swap')">Swap</button>
+                    <button class="history-sub-button" onclick="filterHistory('sent')">Sent</button>
+                    <button class="history-sub-button" onclick="filterHistory('deposit')">Deposit</button>
+                    <button class="history-sub-button" onclick="filterHistory('transfer')">Transfer</button>
+                    <button class="history-sub-button" onclick="filterHistory('p2p')">P2P</button>
+                </div>
+    
+                <!-- History Table Content -->
+                <div id="historyContent">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Placeholder row -->
+                            <tr class="placeholder-row">
+                                <td colspan="4">Select a history type to view details.</td>
+                            </tr>
+                            
+                            <!-- Example Data for History Types (Swap, Sent, Deposit, Transfer, P2P) -->
+                            <tr class="history-row hidden" data-type="all">
+                                <td>2024-11-21</td>
+                                <td>Swap</td>
+                                <td>$100</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr class="history-row hidden" data-type="all">
+                                <td>2024-11-20</td>
+                                <td>Sent</td>
+                                <td>$250</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr class="history-row hidden" data-type="swap">
+                                <td>2024-11-19</td>
+                                <td>Swap</td>
+                                <td>$50</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr class="history-row hidden" data-type="sent">
+                                <td>2024-11-18</td>
+                                <td>Sent</td>
+                                <td>$150</td>
+                                <td>Pending</td>
+                            </tr>
+                            <tr class="history-row hidden" data-type="deposit">
+                                <td>2024-11-17</td>
+                                <td>Deposit</td>
+                                <td>$200</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr class="history-row hidden" data-type="transfer">
+                                <td>2024-11-16</td>
+                                <td>Transfer</td>
+                                <td>$300</td>
+                                <td>Failed</td>
+                            </tr>
+                            <tr class="history-row hidden" data-type="p2p">
+                                <td>2024-11-15</td>
+                                <td>P2P</td>
+                                <td>$400</td>
+                                <td>Completed</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Right Section -->
+    <div class="right_section">
+            <div class="charts-container">
+                <div class="chart">
+                    <h3>Total Growth</h3>
+                    <canvas id="totalGrowthChart"></canvas>
+                </div>
+                <div class="chart">
+                    <h3>Staking/Investment Growth</h3>
+                    <canvas id="stakingGrowthChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // gm_gn.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    const gmGnBtn = document.getElementById('gmGnBtn');
+
+    // Predefined messages for different categories
+    const messages = {
+        crypto: [
+            "GM! 🚀 Ready to dive into today's crypto trends?",
+            "GN! 🌙 Secure your crypto assets tonight.",
+            "GM! 💹 Bitcoin is on the rise today!",
+            "GN! 🛡️ Remember to keep your crypto safe."
+        ],
+        agriculture: [
+            "GM! 🌱 Let's cultivate some success today.",
+            "GN! 🌾 Rest well after a fruitful day.",
+            "GM! 🚜 Time to innovate in agriculture!",
+            "GN! 🌿 Keep nurturing those green dreams."
+        ],
+        languages: [
+            "GM! 🗣️ Ready to learn a new language today?",
+            "GN! 📚 Reflect on your language journey tonight.",
+            "GM! ✍️ Practice makes perfect in languages.",
+            "GN! 💤 Dream in a new language tonight."
+        ],
+        legends: [
+            "GM! 🏰 Embrace the legends of yesterday.",
+            "GN! 🌟 Let the legends inspire your dreams.",
+            "GM! ⚔️ Create your own legendary stories.",
+            "GN! 🛡️ Protect your legendary aspirations."
+        ],
+        kings: [
+            "GM! 👑 Lead your day like a king.",
+            "GN! 🌙 Reflect on your royal achievements.",
+            "GM! 🏰 Rule your tasks with authority today.",
+            "GN! 💤 Rest like a true king tonight."
+        ],
+        random: [
+            "GM! ☀️ A new day awaits your brilliance.",
+            "GN! 🌜 May your night be restful and peaceful.",
+            "GM! 🌼 Embrace the opportunities today.",
+            "GN! ✨ Let the stars guide your dreams tonight."
+        ]
+    };
+
+    // User preferences (can be extended to fetch from user settings)
+    const userPreferences = {
+        categories: ['crypto', 'agriculture', 'languages', 'legends', 'kings', 'random']
+    };
+
+    gmGnBtn.addEventListener('click', () => {
+        const generatedMessage = generateMessage();
+        sendMessage(generatedMessage);
+    });
+
+    function generateMessage() {
+        const selectedCategory = userPreferences.categories[Math.floor(Math.random() * userPreferences.categories.length)];
+        const categoryMessages = messages[selectedCategory];
+        const message = categoryMessages[Math.floor(Math.random() * categoryMessages.length)];
+        return message;
+    }
+
+    function sendMessage(message) {
+        // Here you can define how to send the message.
+        // For demonstration, we'll append it to the chat window if Messages section is active.
+        const activeSection = document.querySelector('.main-section.active');
+        if (activeSection && activeSection.id === 'messagesSection') {
+            const chatMessages = document.getElementById('chatMessages');
+            const aiMessage = document.createElement('p');
+            aiMessage.classList.add('other');
+            aiMessage.innerHTML = `<strong>AI Assistant:</strong> ${escapeHTML(message)}`;
+            chatMessages.appendChild(aiMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Increment message counter
+            const messageCounter = document.getElementById('messageCounter');
+            const currentCount = parseInt(messageCounter.textContent) || 0;
+            if (currentCount < 50) {
+                messageCounter.textContent = currentCount + 1;
+                if (currentCount + 1 >= 50) {
+                    messageCounter.classList.add('active');
+                }
+            } else {
+                messageCounter.textContent = '50+';
+                messageCounter.classList.add('active');
+            }
+        } else {
+            alert(`GM/GN Message: ${message}`);
+        }
+    }
+
+    function escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+});
+
+
+// Function to show a section by toggling the active section class
+function showSection(sectionId) {
+  // Hide all sections by removing the 'active-section' class
+  document.querySelectorAll('.section').forEach(section => {
+      section.classList.remove('active-section');
+  });
+
+  // Add the 'active-section' class to the selected section
+  const targetSection = document.getElementById(sectionId);
+  if (targetSection) {
+      targetSection.classList.add('active-section');
+  }
+
+  // Remove the 'active' class from all buttons
+  document.querySelectorAll('.section-buttons button').forEach(button => {
+      button.classList.remove('active');
+  });
+
+  // Add 'active' class to the clicked button
+  document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('active');
+}
+
+// Function to show the stake popup
+function showStakePopup(action, plan, amount) {
+  const modal = document.getElementById('stakeModal');
+  document.getElementById('stakeMessage').innerText = `${action}: ${plan} ($${amount})`;
+  openModal(modal);
+}
+
+// Function to show the extend popup
+function showExtendPopup(plan, duration) {
+  const modal = document.getElementById('extendModal');
+  document.getElementById('extendPlanName').innerText = `${plan} (${duration} Days)`;
+  openModal(modal);
+}
+
+// Function to show the end popup
+function showEndPopup(plan) {
+  const modal = document.getElementById('endModal');
+  document.getElementById('endPlanName').innerText = plan;
+  openModal(modal);
+}
+
+// Function to open the modal
+function openModal(modal) {
+  modal.style.display = 'flex';
+}
+
+// Function to close the modal
+function closeModal() {
+  document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
+}
+
+// Confirmation functions for modals
+function confirmStake() {
+  alert('Stake Confirmed!');
+  closeModal();
+}
+
+function confirmExtend() {
+  alert('Stake Extended!');
+  closeModal();
+}
+
+function confirmEnd() {
+  alert('Stake Ended!');
+  closeModal();
+}
+
+// Function to show the selected tab content
+function showTabContentById(tabId) {
+  // Hide all tab content sections
+  document.querySelectorAll('.tab-content').forEach(content => {
+      content.classList.remove('active');
+  });
+
+  // Show the target content by adding 'active' class
+  const tabContent = document.getElementById(tabId);
+  if (tabContent) {
+      tabContent.classList.add('active');
+  }
+}
+
+// Add event listener to each tab button to switch tabs
+document.querySelectorAll('.tab-button').forEach(button => {
+  button.addEventListener('click', () => {
+      // Remove 'active' class from all tab buttons
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+      // Add 'active' class to the clicked button
+      button.classList.add('active');
+
+      // Get the target tab content ID from the data-target attribute of the clicked button
+      const targetContentId = button.dataset.target;
+
+      // Show the content of the clicked tab
+      showTabContentById(targetContentId);
+  });
+});
+
+// Set the default section on page load
+window.addEventListener('DOMContentLoaded', () => {
+  // Set the default section to be "staking"
+  showSection('staking'); // Display the default "Staking" section
+});
+
+
+
+</script>
+<!-- External JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="charts.js"></script>
+<script src="nav.js"></script>
+<script src="Gm_Gn.js" defer></script>
+<script src="active.js"></script>
+<!-- <script src="main.js"></script> -->
+<script src="market.js"></script>
+<script src="cart.js"></script>
+</html>

@@ -1,0 +1,2836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="nav.css">
+    <!-- <link rel="stylesheet" href="wallet.css"> -->
+    <link rel="stylesheet" href="staking.css">
+
+    <style>
+        main {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    padding-bottom: 5px;
+    margin-left: 340px;
+    margin-right: 360px;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+.center_section_header {
+    width: 100%;
+    gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px;
+}
+.center_content {
+    width: 100%;
+    margin: 0;
+    border: var(--border);
+    padding: 20px;
+    padding-top: 5px ;
+    height: 90vh;
+    overflow: hidden;
+    overflow-y: auto;
+    border-radius: 15px 0 0 15px;
+}
+/* */
+/* Icon Group */
+.icon-group {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    background: #1f1f1f;
+    background: rgb(0, 0, 0);
+    border: 1px solid lime;
+    margin: 0;
+}
+
+.icon-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.icon-container i {
+    font-size: 20px;
+    color: lime;
+}
+
+        .right_section {
+            width: 350px;
+            background-color: var(--background-color);
+            border-right: 1px solid var(--primary-color);
+            padding: 10px;
+            padding-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease-in-out;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            z-index: 1000;
+        }
+        @media (max-width: 1000px) {
+            main {
+                width: 100%;
+                display: flex;
+            }
+            .center_section {
+                width: 100%;
+            }
+        .center_section_header {
+            width: 100%;
+        }
+    .right_section {
+        display: none;
+    }
+}
+@media (max-width: 700px) {
+    main {
+        margin: 0;
+    }
+    .center_section{
+    width: 100%;
+    display: flex;
+}
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+    main {
+        margin: 0;
+    }
+    .center_section{
+    margin: 0;
+    width: 100%;
+    display: flex;
+}
+.center_section_header {
+    width: 100%;
+}
+}
+.overlay-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 1;
+        }
+    /* Account Balance */
+    .wallet-balance {
+      gap: 20px;
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      padding-left: 0;
+      display: flex;
+      flex-direction: row;
+      border-radius: 15px;
+      margin-bottom: 70px;
+      text-align: center;
+    }
+    .balance {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        color: #ffffff;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1px solid #c8ff00;
+        transition: all 0.3s ease;
+        border-radius: 12px;
+        box-shadow: 4px 4px 8px #000000, -4px -4px 8px #2b2b2b;
+        background-image: linear-gradient(145deg, #000000, #c8ff00);
+    }
+    .sub_account_container {
+      height: fit-content;
+      width: 100%;
+      gap: 10px;
+      display: flex;
+    }
+    .sub_account_container .balance {
+        height: 60px;
+        height: fit-content;
+        width: 100%;
+      }
+      .sub_account_container .balance h1{
+        font-size:  calc(100% - 4px);
+      }
+      .sub_account_container .balance p {
+        font-size:  calc(100% - 4px);
+      }
+    .wallet-balance h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+    .wallet-balance p {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+    .dynamic-content {
+      width: 90%;
+    }
+    .wallet-list {
+      width: 80%;
+    }
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 0px;
+      gap: 10px;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: var(--border);
+    }
+    .action-button {
+    gap: 10px;
+    flex: 1;
+    padding: 25px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #c8ff00;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px #000000, -4px -4px 8px #2b2b2b;
+    background-image: linear-gradient(145deg, #202020, #121212);
+    }
+    .action-button i {
+        font-size: 20px;
+        color: #c8ff00; /* Adjust this color to fit your theme */
+        margin-right: 8px;
+    }
+    .action-button:hover i {
+        color: lime; /* Hover color */
+    }
+    
+    .action-button:hover {
+      background-color: #3a3a3a;
+    }
+
+    .action-button span {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* Dynamic Content Sections */
+    #dynamic-content {
+      display: none;
+    }
+
+    /* Wallet List */
+    .wallet-list {
+        width: 100%;
+        gap: 8px;
+        display: flex;
+        padding: 20px;
+        border-radius: 12px;
+        flex-direction: column;
+    }
+    .wallet-list h2 {
+        color: lime;
+        margin-bottom: 10px;
+    }
+    .wallet-item {
+        width: 100%;
+        background-color: #1e1e1e;
+        padding: 10px 20px;
+        border-radius: 4px;
+        display: flex;
+        gap: 25%;
+        color: #c8ff00;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1px solid #3d3f3e;
+        transition: all 0.3s ease;
+        box-shadow: 4px 4px 8px #000000, -4px -4px 8px #2b2b2b;
+        background: var(--button-background);
+    }
+    .wallet-item span {
+      font-size: 18px;
+      color: #fff;
+    }
+
+.charts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    background-color: #1e1e1e;
+    width: 100%;
+    height: 80vh;
+    border-radius: 0 0 12px 12px;
+}
+.chart {
+    width: 300px;
+    height: 35vh;
+    background-color: #2a2a2a;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.chart h3 {
+    text-align: center;
+    margin-bottom: 5px;
+    color: lime;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+/* Trending section styles */
+.trending {
+    width: 100%;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 4px 6px rgba(0, 255, 0, 0.2);
+    z-index: 1;
+    transition: height 0.4s ease;
+    right: 0;
+    border: var(--border);
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+}
+
+.trending.full-screen {
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    border-radius: 0;
+    box-shadow: 0px 4px 20px rgba(0, 255, 0, 0.3);
+    overflow-y: auto;
+}
+
+/* Trending section header */
+.trending-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: #39ff14;
+    cursor: pointer;
+}
+
+/* Trending title */
+.trending-header h2 {
+    width: 90%;
+    font-size: 22px;
+}
+
+/* Icon container styling */
+.trending-icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.trending-icon-container i {
+    font-size: 18px;
+    color: #39ff14;
+    background-color: #1a1a1a;
+    border: 1px solid #39ff14;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 0 6px 1px lime;
+    transition: transform 0.3s ease;
+}
+
+/* Icon visibility control */
+.up-arrow {
+    display: inline-block;
+}
+
+.down-arrow {
+    display: none;
+}
+
+/* Trending content styling */
+.trending-content {
+    display: none;
+    padding: 15px;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* Show content when expanded */
+.trending.full-screen .trending-content {
+    display: block;
+    opacity: 1;
+}
+
+/* Trending content item styling */
+.trending-content .content-card {
+    background-color: #1a1a1a;
+    color: #39ff14;
+    padding: 10px;
+    border: 1px solid #39ff14;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 255, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.trending-content .content-card:hover {
+    transform: translateY(-3px);
+}
+.trending-content ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.trending-content ul li {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid #c8ff00;
+}
+/* Hot Deals Section - hidden by default */
+.hot-deals {
+    width: 100%;
+    background-color: #1a1a1a;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.hot-deals h2 {
+    color: #39ff14;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.deals-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual deal cards in Hot Deals */
+.deal-card {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    border: 1px solid #39ff14;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.deal-card:hover, .deal-card h3:hover {
+    color: black;
+    background-color: lime;
+    transform: translateY(-5px);
+}
+
+.deal-card h3 {
+    font-size: 16px;
+    color: #39ff14;
+}
+/* Fade-in animation */
+.action-section {
+    display: none; /* Hidden by default */
+    width: 100%;
+    height: 130vh;
+    padding: 20px;
+    border: var(--border);
+    border-radius: 8px;
+    background-image: linear-gradient(145deg, #333, var(--background-color));
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 24vh;
+    z-index: 1001;
+    opacity: 0; /* Start with opacity 0 */
+    transition: opacity 0.5s ease-in-out; /* Smooth fade-in */
+}
+/* Back arrow */
+.back-arrow {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: black;
+    cursor: pointer;
+    background-color: lime;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.back-arrow i {
+    font-size: 1.5em;
+}
+.action-section.active {
+    display: block; /* Make it visible */
+    opacity: 1; /* Fade to full opacity */
+}
+
+.back-arrow {
+    cursor: pointer;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.form-container {
+    width: 100%;
+    background: var(--background-color);
+    padding: 20px;
+    border-radius: 8px;
+    border: var(--border);
+    z-index: 1001;
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+.result-card {
+    background: linear-gradient(145deg, #333, var(--background-color));
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.qr-code-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.qr-code {
+    max-width: 200px;
+}
+
+.crypto-receive-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: lime;
+}
+
+.form-group input, .form-group select {
+    width: 50%;
+    padding: 14px;
+    border: var(--border);
+    border-radius: 12px;
+    background: #1e1e1e;
+    color: #ffffff;
+    font-size: 1em;
+    outline: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus, .form-group select:focus {
+    background: #252525;
+}
+
+/* 3D Copy Button */
+.copy-button {
+    background: var(--background-color, #333);
+    border: 1px solid lime;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+}
+
+.copy-button:hover {
+    background: #1e1e1e;
+    box-shadow: 0px 8px 20px rgba(0, 255, 128, 0.4);
+    transform: translateY(-3px);
+}
+
+/* Result Card with Enhanced 3D Style */
+.result-card {
+    background: #1e1e1e;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 8px 20px rgba(0, 255, 128, 0.3), inset 0px -4px 8px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Transaction Status Text */
+.transaction-status {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 1.2em;
+    color: lime;
+    letter-spacing: 1px;
+}
+
+/* QR Code Container with Subtle 3D Rotation */
+.qr-code-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    perspective: 1000px;
+}
+
+.qr-code {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3), 0px 4px 8px rgba(0, 255, 128, 0.3);
+    transform: rotateY(5deg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qr-code:hover {
+    transform: rotateY(0deg);
+    box-shadow: 0px 14px 28px rgba(0, 255, 128, 0.4), 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Search Container */
+.search-container {
+    width: 70%;
+    position: relative;
+}
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: #2c2c2c;
+    border-radius: 8px;
+    padding: 0 10px;
+    transition: width 0.3s ease;
+    width: 150px;
+    border: var(--border);
+}
+
+.search-wrapper:focus-within {
+    width: 100%;
+}
+
+.search-wrapper input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    padding: 8px 5px;
+    font-size: 16px;
+}
+
+.search-icon {
+    color: lime;
+    margin-left: 5px;
+}
+/* Dropdown Content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 25px;
+    width: 100%;
+    width: 450px;
+    background: #1f1f1f;
+    border: 1px solid lime;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.dropdown-content h3 {
+    color: lime;
+    margin-bottom: 10px;
+}
+
+.icon-container.active .dropdown-content {
+    display: block;
+}
+
+/* Additional Styling */
+.chat-item,
+.notification-item {
+    padding: 5px 0;
+    border-bottom: 1px solid #333;
+}
+
+.chat-item:last-child,
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.chat-item p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Notepad Dropdown Styling */
+#notepadDropdown {
+    padding: 15px;
+    border-radius: 8px;
+    width: 300px;
+    background-color: #2c2c2c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#notepadDropdown h3 {
+    margin-bottom: 10px;
+    color: lime;
+}
+
+#notepadDropdown textarea,
+#notepadDropdown input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid lime;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 14px;
+}
+
+#notepadDropdown .note-actions button {
+    padding: 10px;
+    margin: 5px;
+    background-color: lime;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#notepadDropdown .note-actions button:hover {
+    background-color: #aad576;
+}
+
+#notepadDropdown .tags-section {
+    margin-top: 10px;
+}
+
+#notepadDropdown .tags-section input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid lime;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 14px;
+}
+
+#notepadDropdown .notes-list {
+    margin-top: 20px;
+}
+
+#notepadDropdown #searchNotes {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid lime;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+#notepadDropdown ul {
+    list-style: none;
+    padding: 0;
+}
+
+#notepadDropdown ul li {
+    background-color: #2c2c2c;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    color: lime;
+    cursor: pointer;
+}
+
+#notepadDropdown ul li:hover {
+    background-color: #1a1a1a;
+}
+
+.close-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.close-button:hover {
+    background-color: #a10000;
+}
+
+.icon-container {
+    position: relative;
+}
+
+/* Notepad Icon Styling */
+#notepadIcon {
+    font-size: 24px;
+    color: lime;
+    cursor: pointer;
+}
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.header-button {
+    padding: 0.5rem 1rem;
+    color: #d4f0bb;
+    background: linear-gradient(145deg, #202020, #121212);
+    border: var(--border);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header-button.active {
+    background: lime;
+    font-weight: 600;
+    color: black;
+}
+
+.header-button:hover {
+    background-color: lime;
+    color: black;
+}
+
+.center_content {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.center_content.section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.history-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.history-sub-button {
+    padding: 0.4rem 0.8rem;
+    color: #d4f0bb;
+    background: none;
+    border: 2px solid #d4f0bb;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.history-sub-button.active {
+    background-color: limegreen;
+    color: black;
+}
+
+.hidden {
+    display: none;
+}
+
+.center_content {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.center_content.section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Style for the history table */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.history-table th,
+.history-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #444;
+}
+
+.history-table th {
+    background-color: #333;
+    color: lime;
+}
+
+.history-table td {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Placeholder row styling */
+.placeholder-row {
+    text-align: center;
+    color: #888;
+}
+
+/* Hide rows by default */
+.history-row.hidden {
+    display: none;
+}
+
+/* Show active rows */
+.history-row.active {
+    display: table-row;
+}
+
+/* Sub-buttons styling */
+.history-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.history-sub-button {
+    padding: 10px 15px;
+    background-color: #222;
+    border: 1px solid lime;
+    color: lime;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.history-sub-button:hover {
+    background-color: lime;
+    color: black;
+}
+
+.history-sub-button.active {
+    background-color: lime;
+    color: black;
+}
+
+/* Wallet Recommendations */
+.wallet-recommendations {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    transition: opacity 0.3s ease;
+}
+
+.wallet-card {
+    background-color: #302c2c;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Hidden Recommendations */
+.wallet-recommendations.hidden {
+    display: none;
+}
+
+
+/* Search Container */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 10px;
+}
+
+/* Search Wrapper */
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.search-wrapper input:focus {
+    width: 300px;
+    outline: none;
+}
+
+/* Search Icon */
+.search-icon {
+    position: absolute;
+    right: 12px;
+    color: lime;
+    cursor: pointer;
+}
+
+/* Wallet Recommendations */
+.wallet-recommendations {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    transition: opacity 0.3s ease;
+}
+/* Hidden Recommendations */
+.wallet-recommendations.hidden {
+    display: none;
+}
+
+
+
+
+                /* Main content */
+                .center_section {
+            width: 100%;
+        }
+
+        /* Section switch buttons at top */
+        .section-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .main_sub_heading {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .section-buttons button {
+            margin-right: 10px;
+            padding: 10px;
+            background-color: var(--button-bg);
+            color: lime;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            border: var(--border);
+            transition: background-color 0.3s;
+        }
+
+        .section-buttons button:hover {
+            background-color: var(--button-hover-bg);
+        }
+
+        /* General section styling */
+.section {
+    display: none; /* Hide all sections by default */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for sections */
+    border: 1px solid #ddd; /* Border for distinction */
+    border-radius: 8px;
+}
+
+/* Show only the active section */
+.section.active-section {
+    display: block;
+}
+
+/* Button styling */
+.section-buttons button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: var(--button-bg);
+    color: #ddd8d8;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: var(--border);
+    transition: background-color 0.3s ease;
+}
+
+/* Active button styling */
+.section-buttons button.active {
+    background-color: lime; /* Active button color */
+    color: #000000;
+}
+
+/* Button hover effect */
+.section-buttons button:hover {
+    background-color: lime; /* Darker blue on hover */
+    color: #000000;
+}
+
+        /* Staking, Manage Stake, and History Sections */
+        .section {
+            height: 90vh;
+            width: 100%;
+            display: none;
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: var(--border);
+            overflow: hidden;
+            overflow-y: auto;
+        }
+
+        .staking-plan, .stake-card {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: var(--border);
+        }
+
+        .staking-plan button, .stake-card button {
+            padding: 8px 12px;
+            background-color: rgb(0, 0, 0);
+            color: var(--text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            border: 1px solid gold;
+            transition: background-color 0.3s;
+        }
+
+        .staking-plan button:hover, .stake-card button:hover {
+            background-color: var(--button-hover-bg);
+        }
+
+        /* Duration Dropdown */
+        .dropdown {
+            margin-top: 10px;
+            background-color: #333;
+            color: #fff;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            width: 100%;
+        }
+
+        /* Popup Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            color: var(--text-color);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            width: 300px;
+        }
+
+        .modal-content p {
+            margin-bottom: 15px;
+        }
+
+        .modal-content button {
+            padding: 8px 12px;
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: var(--button-hover-bg);
+        }
+
+        /* Active section styling */
+        .active-section {
+            display: block;
+        }
+
+        /* History Section */
+        .history-record {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 15px;
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table, .history-table th, .history-table td {
+            border: 1px solid #3c3c3c;
+            padding: 10px;
+        }
+
+        th, td {
+            background-color: #2a2a2a;
+            color: var(--text-color);
+        }
+
+        .sub-section-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: var(--border);
+  cursor: pointer;
+  background: #141414;
+  color: #fff;
+  font-weight: bold;
+}
+
+.tab-button.active {
+  background: #555;
+  color: #00ff00; /* Highlight for active tab */
+}
+
+.tab-content {
+  display: none;
+  border: var(--border);
+
+}
+
+.tab-content.active {
+  display: block;
+}
+.tab-content {
+  display: none; /* Hide inactive tabs */
+}
+
+.tab-content.active {
+  display: block; /* Show active tab */
+}
+    </style>
+
+    </style>
+</head>
+    <!-- Close Button outside the sidebar -->
+<div class="sidebar_close">
+    <button class="close-btn" id="closeSidebarBtn">&times;</button>
+</div>
+    <!-- Sidebar Section -->
+    <nav class="sidebar" id="sidebar">
+        <div class="account-switcher">
+            <div class="account-dropdown" onclick="toggleDropdown()">
+                <div class="selected-account">
+                   <img src="Assets/NFT sneak peak...3.jpg" alt="User 1" id="selectedAccountImg">
+                   <span class="dropdown-text" id="selectedAccountName">User 1</span>
+                </div>
+                <span class="arrow">&#x25BC;</span> <!-- Down arrow -->
+            </div>
+            <div class="accounts-container" id="accountsContainer">
+            <!-- Account 1 -->
+            <div class="account active" id="account1" onclick="switchAccount('account1', 'User 1', 'Assets/NFT sneak peak...3.jpg')">
+                <img src="Assets/NFT sneak peak...3.jpg" alt="User 1" class="account-img">
+                <div class="user_contents">
+                    <span class="username">User 1</span>
+                    <span class="active-check" id="check1">&#10003;</span>
+                </div>
+            </div>
+            <!-- Account 2 -->
+            <div class="account" id="account2" onclick="switchAccount('account2', 'User 2', 'Assets/NFT sneak peak...4.jpg')">
+                <img src="Assets/NFT sneak peak...4.jpg" alt="User 2" class="account-img">
+                <div class="user_contents">
+                    <span class="username">User 2</span>
+                    <span class="active-check" id="check2">&#10003;</span>
+                </div>
+            </div>
+            <!-- Account 3 -->
+            <div class="account" id="account3" onclick="switchAccount('account3', 'User 3', 'Assets/NFT sneak peak...5.jpg')">
+                <img src="Assets/NFT sneak peak...5.jpg" alt="User 3" class="account-img">
+                <div class="user_contents">
+                    <span class="username">User 3</span>
+                <span class="active-check" id="check3">&#10003;</span>
+                </div>
+            </div>
+        </div>
+        <!-- Theme Switcher -->
+        <button id="theme-switcher" class="theme-switcher" aria-label="Toggle Theme">
+            <i class="fas fa-moon"></i> Dark
+        </button>
+        </div>
+        <div class="overlay" id="overlay" onclick="closeDropdown()"></div> <!-- Overlay div -->
+        <!-- Navigation Links -->
+        <ul class="nav-links">
+            <li class="nav-link">
+                <a href="sproutslink.html" id="sproutsLink">
+                    <i class="fas fa-link"></i>
+                    <span class="link-text">SPROUTSLINK</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="message.html" id="sproutsLink">
+                    <i class="fas fa-link"></i>
+                    <span class="link-text">MESSAGES( )</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="market.html" id="marketLink">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="link-text">SPROUTS MARKET</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="staking.html" id="homeLink">
+                    <i class="fas fa-home"></i>
+                    <span class="link-text">SPROUTS STAKE</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="Farm.html" id="servicesLink">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span class="link-text">SPROUTS FARM</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="Wallet.html" id="walletLink">
+                    <i class="fas fa-wallet"></i>
+                    <span class="link-text">SPROUTS WALLET</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="#" id="walletLink">
+                    <i class="fas fa-wallet"></i>
+                    <span class="link-text">SPROUTS LABS</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="#" id="settingsLink">
+                    <i class="fas fa-cog"></i>
+                    <span class="link-text">PROFILE</span>
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="settings.html" id="settingsLink">
+                    <i class="fas fa-cog"></i>
+                    <span class="link-text">SETTINGS</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Additional Sidebar Elements -->
+        <div class="nav_extension">
+            <div class="gm-gn-section" id="Gm_Gn">
+                    <div class="gn">
+                       <i class="fas fa-moon"></i><h2>GN</h2>
+                    </div>
+                    <div class="gm">
+                       <i class="fas fa-sun"></i><h2>GM</h2>
+                    </div>
+            </div>
+
+            <!-- Social Buttons -->
+            <div class="social-buttons">
+                <button id="addPostBtn" class="plus-btn" aria-label="Add Post">
+                    <i class="fas fa-plus"></i> Post
+                </button>
+            </div>
+        </div>
+        <!-- New Sidebar Overlay -->
+        <div class="overlay-sidebar" id="overlaySidebar"></div>
+        <!-- Add Post Popup -->
+    <div class="popup" id="postPopup">
+        <textarea id="postText" placeholder="What's on your mind?"></textarea>
+        <div class="post-attachments">
+            <button id="attachmentBtn" class="attachment-btn"><i class="fas fa-paperclip"></i> Attach</button>
+            <div class="attachment-options" id="attachmentOptions">
+                <button class="attachment-option"><i class="fas fa-image"></i> Image</button>
+                <button class="attachment-option"><i class="fas fa-video"></i> Video</button>
+                <button class="attachment-option"><i class="fas fa-microphone"></i> Audio</button>
+                <button class="attachment-option"><i class="fas fa-file-alt"></i> Document</button>
+            </div>
+        </div>
+        <div class="popup-actions">
+            <button id="submitPost" class="submit-post-btn">Post</button>
+            <button id="cancelPost" class="cancel-post-btn">Cancel</button>
+        </div>
+    </div>
+    <!-- Go Live Popup -->
+    <div class="go-live-popup" id="goLivePopup" style="display: none;">
+        <button class="live-option" id="audioLiveBtn"><i class="fas fa-microphone"></i> Audio</button>
+        <button class="live-option" id="videoLiveBtn"><i class="fas fa-video"></i> Video</button>
+        <div class="go-live-options" id="goLiveOptions">
+            <button id="proceedLive" class="proceed-btn">Proceed</button>
+            <button id="cancelLive" class="cancel-btn">Cancel</button>
+        </div>
+    </div>
+    </nav>
+
+    <!-- Home Button Wrapper -->
+    <div class="home-container">
+       <button class="home-btn" id="homeBtn">Home</button>
+    </div>
+    <main>
+        <!-- CENTER SECTION -->
+     <section class="center_section" style="display: flex; flex-direction: column;">
+     <!-- Center Section Header -->
+      <div class="center_section_header">
+        <!-- Button to open the sidebar -->
+        <button id="menuBtn" class="menu-btn">☰</button>
+        
+        <!-- Sub Heading Navigation -->
+        <div class="main_sub_heading">
+            <div class="section-buttons">
+                <button class="active" onclick="showSection('staking')">Staking</button>
+                <button onclick="showSection('manage-stake')">Manage Stake</button>
+                <button onclick="showSection('history')">History</button>
+            </div>
+                    
+            <div class="icon-group">
+                <!-- Support Icon -->
+                <div class="support_div">
+                    <i class="fas fa-headset support" aria-label="Support"></i>
+                    <div class="support-dropdown" id="supportDropdown">
+                        <button class="close-button" id="closeSupport">✖</button>
+                        <h3>Support Options</h3>
+                        <ul>
+                            <li><a href="https://wa.me/" target="_blank">WhatsApp Support</a></li>
+                            <li><a href="https://discord.com/" target="_blank">Discord Support</a></li>
+                            <li><a href="https://telegram.org/" target="_blank">Telegram Support</a></li>
+                            <li>
+                                <a href="#chatBot" id="chatBotLink">
+                                    <i class="fas fa-comment-dots" aria-label="Chat Bot"></i> Chat Bot
+                                </a>
+                            </li>                
+                        </ul>
+                    </div>
+                </div>
+                <!-- Notepad Icon -->
+                <div class="notepad_div">
+                    <i class="fas fa-edit notepad" aria-label="Notepad"></i>
+                    <div class="notepad-dropdown" id="notepadDropdown">
+                        <button class="close-button" id="closeNotepad">✖</button>
+                        <div class="notepad-header">
+                            <button id="createNoteBtn">Create Note</button>
+                            <button id="viewAllNotesBtn">All Notes</button>
+                        </div>
+                        <div class="notepad-content">
+                            <div id="createNoteSection">
+                                <h3>Create a New Note</h3>
+                                <form id="createNoteForm">
+                                    <input type="text" placeholder="Note Title" id="noteTitle" required>
+                                    <textarea placeholder="Write your note here..." id="noteContent" required></textarea>
+                                    <button type="submit">Save Note</button>
+                                </form>
+                            </div>
+                            <div id="allNotesSection" style="display: none;">
+                                <h3>Saved Notes</h3>
+                                <div class="saved-notes" id="savedNotes">
+                                    <!-- Notes will be listed here dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Notifications Icon -->
+                <div class="notification-container">
+                    <i class="fas fa-bell" id="notificationIcon" aria-label="Notifications"></i>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <button class="close-button" id="closeNotifications">✖</button>
+                        <h3>Notifications</h3>
+                        <div class="order-filter_container">
+                            <button class="order-filter active" data-type="system">System Alerts</button>
+                            <button class="order-filter" data-type="market">Market Orders</button>
+                            <button class="order-filter" data-type="p2p">P2P Orders</button>
+                            <button class="order-filter" data-type="trading">Trading Orders</button>
+                        </div>
+                        <div class="notifications-content">
+                            <div class="notifications-group active" data-type="system">
+                                <div class="notification-item">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>System maintenance scheduled at midnight.</span>
+                                </div>
+                                <div class="notification-item">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span>Security update available.</span>
+                                </div>
+                                <div class="notification-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Your profile has been verified.</span>
+                                </div>
+                            </div>
+                            <!-- Other notification types (market, P2P, trading) here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="center_section">
+            <!-- Staking Section -->
+            <div id="staking" class="section active-section">
+                <h2>Staking Options</h2>
+        
+                <!-- Staking Plans A-F with Duration Dropdown -->
+                <div class="staking-plan">
+                    <p>Plan A: $100</p>
+                    <select class="dropdown" id="planA-duration">
+                        <option value="30">30 Days</option>
+                        <option value="60">60 Days</option>
+                        <option value="90">90 Days</option>
+                    </select>
+                    <button onclick="showStakePopup('Stake Now', 'Plan A', 100)">Stake Now</button>
+                </div>
+                <div class="staking-plan">
+                    <p>Plan B: $200</p>
+                    <select class="dropdown" id="planB-duration">
+                        <option value="30">30 Days</option>
+                        <option value="60">60 Days</option>
+                        <option value="90">90 Days</option>
+                    </select>
+                    <button onclick="showStakePopup('Stake Now', 'Plan B', 200)">Stake Now</button>
+                </div>
+                <div class="staking-plan">
+                    <p>Plan C: $500</p>
+                    <select class="dropdown" id="planC-duration">
+                        <option value="30">30 Days</option>
+                        <option value="60">60 Days</option>
+                        <option value="90">90 Days</option>
+                    </select>
+                    <button onclick="showStakePopup('Stake Now', 'Plan C', 500)">Stake Now</button>
+                </div>
+                <div class="staking-plan">
+                    <p>Plan D: $1000</p>
+                    <select class="dropdown" id="planD-duration">
+                        <option value="30">30 Days</option>
+                        <option value="60">60 Days</option>
+                        <option value="90">90 Days</option>
+                    </select>
+                    <button onclick="showStakePopup('Stake Now', 'Plan D', 1000)">Stake Now</button>
+                </div>
+                <div class="staking-plan">
+                    <p>Plan E: $2000</p>
+                    <select class="dropdown" id="planE-duration">
+                        <option value="30">30 Days</option>
+                        <option value="60">60 Days</option>
+                        <option value="90">90 Days</option>
+                    </select>
+                    <button onclick="showStakePopup('Stake Now', 'Plan E', 2000)">Stake Now</button>
+                </div>
+                <div class="staking-plan">
+                    <p>Plan F: $5000</p>
+                    <select class="dropdown" id="planF-duration">
+                        <option value="30">30 Days</option>
+                        <option value="60">60 Days</option>
+                        <option value="90">90 Days</option>
+                    </select>
+                    <button onclick="showStakePopup('Stake Now', 'Plan F', 5000)">Stake Now</button>
+                </div>
+            </div>
+        
+            <!-- Manage Stake Section -->
+            <div id="manage-stake" class="section">
+                <h2>Manage Stake</h2>
+                <!-- Show All Staked Plans -->
+                <div class="stake-card">
+                    <p>Plan A - $100 - 30 Days</p>
+                    <button onclick="showExtendPopup('Plan A', 30)">Extend</button>
+                    <button onclick="showEndPopup('Plan A')">End</button>
+                </div>
+                <div class="stake-card">
+                    <p>Plan B - $200 - 60 Days</p>
+                    <button onclick="showExtendPopup('Plan B', 60)">Extend</button>
+                    <button onclick="showEndPopup('Plan B')">End</button>
+                </div>
+            </div>
+        </div>
+        
+
+    <!-- History Section -->
+    <div id="history" class="section">
+      <div class="tabs">
+        <!-- Tab buttons -->
+        <button class="tab-button active" data-target="historyContent">History</button>
+        <button class="tab-button" data-target="statisticsContent">Statistics</button>
+      </div>
+      
+      <div class="tab-content active" id="historyContent">
+        <!-- History content goes here -->
+        <h2>Statistics</h2>
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>Amount</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Plan A</td>
+                    <td>$100</td>
+                    <td>30 days</td>
+                    <td>Completed</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      
+      <div class="tab-content" id="statisticsContent">
+        <!-- Statistics content goes here -->
+        <h3>History</h3>
+          <div class="statistics-record">
+              <p>Total Stakes: $300</p>
+              <p>Active Stakes: 2</p>
+              <p>Average Stake Duration: 45 Days</p>
+          </div>
+      </div>
+      
+  </div>
+ 
+<!-- Popup Modals -->
+<div class="modal" id="stakeModal">
+    <div class="modal-content">
+        <p id="stakeMessage"></p>
+        <button onclick="confirmStake()">Confirm</button>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<div class="modal" id="extendModal">
+    <div class="modal-content">
+        <p>Extend the stake for <span id="extendPlanName"></span></p>
+        <select id="extensionDropdown" class="dropdown">
+            <option value="30">30 Days</option>
+            <option value="60">60 Days</option>
+            <option value="90">90 Days</option>
+        </select>
+        <button onclick="confirmExtend()">Extend</button>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<div class="modal" id="endModal">
+    <div class="modal-content">
+        <p>Are you sure you want to end the stake for <span id="endPlanName"></span>?</p>
+        <button onclick="confirmEnd()">End Stake</button>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+        </div>
+    </main>
+    <!-- Right Section -->
+    <div class="right_section">
+            <div class="charts-container">
+                <div class="chart">
+                    <h3>Total Growth</h3>
+                    <canvas id="totalGrowthChart"></canvas>
+                </div>
+                <div class="chart">
+                    <h3>Staking/Investment Growth</h3>
+                    <canvas id="stakingGrowthChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="trending">
+                <div class="trending-header">
+                    <h2>Trending</h2>
+                    <div class="trending-icon-container">
+                        <i class="fa fa-arrow-up up-arrow"></i>
+                        <i class="fa fa-arrow-down down-arrow" style="display: none;"></i>
+                    </div>
+                </div>
+                <div class="trending-content">
+                    <ul>
+                        <li>#SustainableFarming</li>
+                        <li>#AgriTech</li>
+                        <li>#GreenEnergy</li>
+                        <li>#OrganicGinger</li>
+                        <li>#BlockchainInAg</li>
+                        <li>#GreenEnergy</li>
+                    </ul>
+                </div>
+                <!-- Hot Deals Section -->
+                <div class="hot-deals">
+                    <h2>Hot Deals</h2>
+                    <div class="deals-container">
+                        <div class="deal-card">
+                            <h3>Deal 1</h3>
+                            <p>Special offer on organic ginger</p>
+                        </div>
+                        <div class="deal-card">
+                            <h3>Deal 2</h3>
+                            <p>AgriTech equipment sale</p>
+                        </div>
+                        <div class="deal-card">
+                            <h3>Deal 1</h3>
+                            <p>Special offer on organic ginger</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // gm_gn.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    const gmGnBtn = document.getElementById('gmGnBtn');
+
+    // Predefined messages for different categories
+    const messages = {
+        crypto: [
+            "GM! 🚀 Ready to dive into today's crypto trends?",
+            "GN! 🌙 Secure your crypto assets tonight.",
+            "GM! 💹 Bitcoin is on the rise today!",
+            "GN! 🛡️ Remember to keep your crypto safe."
+        ],
+        agriculture: [
+            "GM! 🌱 Let's cultivate some success today.",
+            "GN! 🌾 Rest well after a fruitful day.",
+            "GM! 🚜 Time to innovate in agriculture!",
+            "GN! 🌿 Keep nurturing those green dreams."
+        ],
+        languages: [
+            "GM! 🗣️ Ready to learn a new language today?",
+            "GN! 📚 Reflect on your language journey tonight.",
+            "GM! ✍️ Practice makes perfect in languages.",
+            "GN! 💤 Dream in a new language tonight."
+        ],
+        legends: [
+            "GM! 🏰 Embrace the legends of yesterday.",
+            "GN! 🌟 Let the legends inspire your dreams.",
+            "GM! ⚔️ Create your own legendary stories.",
+            "GN! 🛡️ Protect your legendary aspirations."
+        ],
+        kings: [
+            "GM! 👑 Lead your day like a king.",
+            "GN! 🌙 Reflect on your royal achievements.",
+            "GM! 🏰 Rule your tasks with authority today.",
+            "GN! 💤 Rest like a true king tonight."
+        ],
+        random: [
+            "GM! ☀️ A new day awaits your brilliance.",
+            "GN! 🌜 May your night be restful and peaceful.",
+            "GM! 🌼 Embrace the opportunities today.",
+            "GN! ✨ Let the stars guide your dreams tonight."
+        ]
+    };
+
+    // User preferences (can be extended to fetch from user settings)
+    const userPreferences = {
+        categories: ['crypto', 'agriculture', 'languages', 'legends', 'kings', 'random']
+    };
+
+    gmGnBtn.addEventListener('click', () => {
+        const generatedMessage = generateMessage();
+        sendMessage(generatedMessage);
+    });
+
+    function generateMessage() {
+        const selectedCategory = userPreferences.categories[Math.floor(Math.random() * userPreferences.categories.length)];
+        const categoryMessages = messages[selectedCategory];
+        const message = categoryMessages[Math.floor(Math.random() * categoryMessages.length)];
+        return message;
+    }
+
+    function sendMessage(message) {
+        // Here you can define how to send the message.
+        // For demonstration, we'll append it to the chat window if Messages section is active.
+        const activeSection = document.querySelector('.main-section.active');
+        if (activeSection && activeSection.id === 'messagesSection') {
+            const chatMessages = document.getElementById('chatMessages');
+            const aiMessage = document.createElement('p');
+            aiMessage.classList.add('other');
+            aiMessage.innerHTML = `<strong>AI Assistant:</strong> ${escapeHTML(message)}`;
+            chatMessages.appendChild(aiMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Increment message counter
+            const messageCounter = document.getElementById('messageCounter');
+            const currentCount = parseInt(messageCounter.textContent) || 0;
+            if (currentCount < 50) {
+                messageCounter.textContent = currentCount + 1;
+                if (currentCount + 1 >= 50) {
+                    messageCounter.classList.add('active');
+                }
+            } else {
+                messageCounter.textContent = '50+';
+                messageCounter.classList.add('active');
+            }
+        } else {
+            alert(`GM/GN Message: ${message}`);
+        }
+    }
+
+    function escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    const homeBtn = document.getElementById('homeBtn');
+    
+    // Show sidebar when menu button is clicked
+    menuBtn.addEventListener('click', function () {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.add('open'); // Add the open class to show link text
+        menuBtn.style.display = 'none'; // Hide menu button
+        closeSidebarBtn.style.display = 'block'; // Show close button
+        homeBtn.style.display = 'none'; // Hide home button
+    });
+    
+    // Hide sidebar when close button is clicked
+    closeSidebarBtn.addEventListener('click', function () {
+        sidebar.classList.add('hidden');
+        sidebar.classList.remove('open'); // Remove the open class when closing
+        menuBtn.style.display = 'block'; // Show menu button
+        closeSidebarBtn.style.display = 'none'; // Hide close button
+        homeBtn.style.display = 'block'; // Show home button
+    });
+    
+    // Check screen size and adjust visibility
+    function checkScreenSize() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth <= 760) {
+            sidebar.classList.add('hidden');
+            sidebar.classList.remove('open'); // Ensure the open class is removed
+            menuBtn.style.display = 'block'; // Ensure menu button is visible at 760px and below
+            closeSidebarBtn.style.display = 'none'; // Hide close button
+            homeBtn.style.display = 'block'; // Show home button when sidebar is hidden
+        } else {
+            sidebar.classList.remove('hidden');
+            sidebar.classList.remove('open'); // Ensure the open class is removed on larger screens
+            homeBtn.style.display = 'none'; // Hide home button on larger screens
+            menuBtn.style.display = 'none'; // Hide menu button above 760px unless sidebar is hidden
+            closeSidebarBtn.style.display = 'none'; // Hide close button
+        }
+    }
+    
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize(); // Initial check
+});
+
+// Toggle visibility of the accounts list
+function toggleDropdown() {
+        var container = document.getElementById('accounts-container');
+        var arrow = document.getElementById('arrow');
+        if (container.style.display === "none" || container.style.display === "") {
+            container.style.display = "block";
+            arrow.innerHTML = "&#9650;"; // Upward arrow
+        } else {
+            container.style.display = "none";
+            arrow.innerHTML = "&#9660;"; // Downward arrow
+        }
+    }
+
+    // Switch account function
+    function switchAccount(accountId, username, imgSrc) {
+        // Remove active class from all accounts
+        var accounts = document.getElementsByClassName('account');
+        for (var i = 0; i < accounts.length; i++) {
+            accounts[i].classList.remove('active');
+        }
+        // Add active class to selected account
+        document.getElementById(accountId).classList.add('active');
+        
+        // Update the dropdown text and image to reflect the active account
+        document.getElementById('selected-account-name').innerText = username;
+        document.getElementById('selected-account-img').setAttribute('src', imgSrc); // Ensure image src is updated properly
+
+        // Hide the accounts dropdown after selecting
+        document.getElementById('accounts-container').style.display = 'none';
+        document.getElementById('arrow').innerHTML = "&#9660;"; // Downward arrow
+    }
+
+    // Set default active account (Account 1) on page load
+    window.onload = function() {
+        // Set default account 1 as active
+        switchAccount('account1', 'User 1', 'Assets/NFT sneak peak...3.jpg');
+    };
+
+    // Function to toggle dropdown visibility
+    function toggleDropdown() {
+            const accountsContainer = document.getElementById('accountsContainer');
+            const overlay = document.getElementById('overlay');
+
+            const isOpen = accountsContainer.style.display === 'block';
+            accountsContainer.style.display = isOpen ? 'none' : 'block';
+            overlay.style.display = isOpen ? 'none' : 'block'; // Toggle overlay
+        }
+
+        // Function to switch account
+        function switchAccount(accountId, username, imageSrc) {
+            // Update selected account info
+            document.getElementById('selectedAccountName').innerText = username;
+            document.getElementById('selectedAccountImg').src = imageSrc;
+
+            // Update active account
+            const accounts = document.querySelectorAll('.account');
+            accounts.forEach(account => {
+                account.classList.remove('active');
+                account.querySelector('.active-check').style.display = 'none';
+            });
+
+            const selectedAccount = document.getElementById(accountId);
+            selectedAccount.classList.add('active');
+            selectedAccount.querySelector('.active-check').style.display = 'inline'; // Show check for active account
+
+            // Hide dropdown and overlay after selection
+            toggleDropdown();
+        }
+
+        // Close dropdown if clicked outside
+        function closeDropdown() {
+            const accountsContainer = document.getElementById('accountsContainer');
+            const overlay = document.getElementById('overlay');
+
+            accountsContainer.style.display = 'none';
+            overlay.style.display = 'none'; // Hide overlay
+        }
+
+        // Close dropdown if clicked outside of account switcher
+        document.addEventListener('click', function (event) {
+            const dropdown = document.querySelector('.account-dropdown');
+            const accountsContainer = document.getElementById('accountsContainer');
+            const overlay = document.getElementById('overlay');
+
+            if (!dropdown.contains(event.target) && !accountsContainer.contains(event.target)) {
+                closeDropdown();
+            }
+        });
+
+        
+        // Ensure the dropdown is hidden on page load
+        window.onload = function() {
+            const accountsContainer = document.getElementById('accountsContainer');
+            const overlay = document.getElementById('overlay');
+            accountsContainer.style.display = 'none'; // Ensure it is hidden on load
+            overlay.style.display = 'none'; // Ensure overlay is hidden
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+    const homeBtn = document.getElementById('homeBtn');
+    const sidebarOverlay = document.getElementById('sidebarOverlay'); // New overlay element
+
+    // Show sidebar and overlay when the menu button is clicked
+    menuBtn.addEventListener('click', function () {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.add('open');
+        menuBtn.style.display = 'none';
+        closeSidebarBtn.style.display = 'block';
+        homeBtn.style.display = 'none';
+        sidebarOverlay.style.display = 'block'; // Show overlay
+    });
+
+    // Hide sidebar and overlay when the close button is clicked
+    closeSidebarBtn.addEventListener('click', function () {
+        sidebar.classList.add('hidden');
+        sidebar.classList.remove('open');
+        menuBtn.style.display = 'block';
+        closeSidebarBtn.style.display = 'none';
+        homeBtn.style.display = 'block';
+        sidebarOverlay.style.display = 'none'; // Hide overlay
+    });
+
+    // Hide sidebar and overlay when the overlay itself is clicked
+    sidebarOverlay.addEventListener('click', function () {
+        sidebar.classList.add('hidden');
+        sidebar.classList.remove('open');
+        menuBtn.style.display = 'block';
+        closeSidebarBtn.style.display = 'none';
+        homeBtn.style.display = 'block';
+        sidebarOverlay.style.display = 'none'; // Hide overlay
+    });
+
+    // Check screen size and adjust visibility
+    function checkScreenSize() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth <= 760) {
+            sidebar.classList.add('hidden');
+            sidebar.classList.remove('open');
+            menuBtn.style.display = 'block';
+            closeSidebarBtn.style.display = 'none';
+            homeBtn.style.display = 'block';
+            sidebarOverlay.style.display = 'none'; // Hide overlay on smaller screens
+        } else {
+            sidebar.classList.remove('hidden');
+            sidebar.classList.remove('open');
+            homeBtn.style.display = 'none';
+            menuBtn.style.display = 'none';
+            closeSidebarBtn.style.display = 'none';
+            sidebarOverlay.style.display = 'none'; // Hide overlay on larger screens
+        }
+    }
+
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize(); // Initial check
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const supportDiv = document.querySelector('.support_div');
+    const notepadDiv = document.querySelector('.notepad_div');
+    const notificationIcon = document.getElementById('notificationIcon');
+    const supportDropdown = document.getElementById('supportDropdown');
+    const notepadDropdown = document.getElementById('notepadDropdown');
+    const notificationDropdown = document.getElementById('notificationDropdown');
+    const createNoteBtn = document.getElementById('createNoteBtn');
+    const viewAllNotesBtn = document.getElementById('viewAllNotesBtn');
+    const createNoteSection = document.getElementById('createNoteSection');
+    const allNotesSection = document.getElementById('allNotesSection');
+    const savedNotes = document.getElementById('savedNotes');
+    let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+    // Function to hide all dropdowns
+    function hideAllDropdowns() {
+        supportDropdown.style.display = 'none';
+        notepadDropdown.style.display = 'none';
+        notificationDropdown.style.display = 'none';
+    }
+
+    function renderNotes() {
+        savedNotes.innerHTML = '';
+        notes.forEach((note, index) => {
+            const noteCard = document.createElement('div');
+            noteCard.classList.add('note-card');
+            noteCard.innerHTML = `
+                <h4>${note.title}</h4>
+                <p>${note.content.slice(0, 50)}...</p>
+                <button onclick="viewNote(${index})">View</button>
+                <button onclick="deleteNote(${index})">Delete</button>
+            `;
+            savedNotes.appendChild(noteCard);
+        });
+    }
+
+    function saveNoteToLocalStorage() {
+        localStorage.setItem('notes', JSON.stringify(notes));
+    }
+
+    window.viewNote = function(index) {
+        const note = notes[index];
+        createNoteSection.style.display = 'block';
+        allNotesSection.style.display = 'none';
+        document.getElementById('noteTitle').value = note.title;
+        document.getElementById('noteContent').value = note.content;
+    };
+
+    window.deleteNote = function(index) {
+        notes.splice(index, 1);
+        saveNoteToLocalStorage();
+        renderNotes();
+    };
+
+    // Event Listeners
+    supportDiv.addEventListener('click', () => {
+        hideAllDropdowns();
+        supportDropdown.style.display = 'block';
+    });
+
+    notepadDiv.addEventListener('click', () => {
+        hideAllDropdowns();
+        notepadDropdown.style.display = 'block';
+    });
+
+    notificationIcon.addEventListener('click', () => {
+        hideAllDropdowns();
+        notificationDropdown.style.display = 'block';
+    });
+
+    createNoteBtn.addEventListener('click', () => {
+        createNoteSection.style.display = 'block';
+        allNotesSection.style.display = 'none';
+    });
+
+    viewAllNotesBtn.addEventListener('click', () => {
+        createNoteSection.style.display = 'none';
+        allNotesSection.style.display = 'block';
+        renderNotes();
+    });
+
+    document.getElementById('createNoteForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const title = document.getElementById('noteTitle').value;
+        const content = document.getElementById('noteContent').value;
+        notes.push({ title, content });
+        saveNoteToLocalStorage();
+        renderNotes();
+        this.reset();
+    });
+
+    // Initial render of saved notes
+    renderNotes();
+});
+document.addEventListener("DOMContentLoaded", function () {
+    // Dropdown elements
+    const supportDiv = document.querySelector('.support_div');
+    const notepadDiv = document.querySelector('.notepad_div');
+    const notificationIcon = document.getElementById('notificationIcon');
+
+    // Close buttons
+    const closeSupport = document.getElementById('closeSupport');
+    const closeNotepad = document.getElementById('closeNotepad');
+    const closeNotifications = document.getElementById('closeNotifications');
+
+    // Dropdown containers
+    const supportDropdown = document.getElementById('supportDropdown');
+    const notepadDropdown = document.getElementById('notepadDropdown');
+    const notificationDropdown = document.getElementById('notificationDropdown');
+
+    // Error handling: Check if elements exist before proceeding
+    if (!supportDiv || !notepadDiv || !notificationIcon || 
+        !closeSupport || !closeNotepad || !closeNotifications || 
+        !supportDropdown || !notepadDropdown || !notificationDropdown) {
+        console.error("One or more elements are missing. Please ensure all elements are present in the HTML.");
+        return;
+    }
+
+    // Function to hide all dropdowns
+    function hideAllDropdowns() {
+        supportDropdown.classList.remove('show');
+        notepadDropdown.classList.remove('show');
+        notificationDropdown.classList.remove('show');
+    }
+
+    // Function to toggle the visibility of a given dropdown
+    function toggleDropdown(dropdown) {
+        // Hide all dropdowns first
+        hideAllDropdowns();
+        // Toggle the visibility of the clicked dropdown
+        dropdown.classList.toggle('show');
+    }
+
+    // Event listeners for opening/closing dropdowns
+    supportDiv.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent click propagation
+        toggleDropdown(supportDropdown);
+    });
+
+    notepadDiv.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleDropdown(notepadDropdown);
+    });
+
+    notificationIcon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleDropdown(notificationDropdown);
+    });
+
+    // Event listeners for close buttons
+    closeSupport.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent triggering the parent click event
+        supportDropdown.classList.remove('show');
+    });
+
+    closeNotepad.addEventListener('click', (event) => {
+        event.stopPropagation();
+        notepadDropdown.classList.remove('show');
+    });
+
+    closeNotifications.addEventListener('click', (event) => {
+        event.stopPropagation();
+        notificationDropdown.classList.remove('show');
+    });
+
+    // Clicking outside a dropdown closes all dropdowns
+    document.addEventListener('click', () => {
+        hideAllDropdowns();
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const searchIcon = document.getElementById("searchIcon");
+    const searchBar = document.getElementById("searchBar");
+    const searchInput = document.getElementById("searchInput");
+
+    // Error handling: Check if elements exist before proceeding
+    if (!searchIcon || !searchBar || !searchInput) {
+        console.error("Search elements are missing. Please ensure all elements are present in the HTML.");
+        return;
+    }
+
+    // Toggle search bar visibility on search icon click
+    searchIcon.addEventListener("click", function () {
+        searchBar.classList.toggle("show");
+        searchInput.focus();
+    });
+
+    // Hide search bar if clicked outside
+    document.addEventListener("click", function (event) {
+        if (!searchBar.contains(event.target) && !searchIcon.contains(event.target)) {
+            searchBar.classList.remove("show");
+        }
+    });
+
+    // Prevent event propagation when clicking inside the search bar
+    searchBar.addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const chatBotIcon = document.getElementById('chatBotIcon');
+    const chatbotDropdown = document.getElementById('chatbotDropdown');
+    const closeChatbot = document.getElementById('closeChatbot');
+    const chatInput = document.getElementById('chatInput');
+    const sendChatBtn = document.getElementById('sendChatBtn');
+    const chatHistory = document.getElementById('chatHistory');
+    const chatBotLink = document.getElementById('chatBotLink');
+
+    // Toggle chatbot dropdown
+    chatBotIcon.addEventListener('click', function (event) {
+        event.stopPropagation();
+        chatbotDropdown.classList.toggle('show');
+    });
+
+    // Open chatbot from support link
+    chatBotLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        chatbotDropdown.classList.toggle('show'); // Open/close chatbot
+    });
+
+    // Close chatbot
+    closeChatbot.addEventListener('click', function (event) {
+        event.stopPropagation();
+        chatbotDropdown.classList.remove('show');
+    });
+
+    // Function to send a message
+    function sendMessage() {
+        const userMessage = chatInput.value.trim();
+        if (userMessage === "") return; // Do not send empty messages
+
+        // Display user message
+        const userMessageElem = document.createElement('div');
+        userMessageElem.classList.add('user-message');
+        userMessageElem.textContent = userMessage;
+        chatHistory.appendChild(userMessageElem);
+
+        // Clear input field
+        chatInput.value = '';
+
+        // Simulate bot response after a short delay
+        setTimeout(() => {
+            const botMessageElem = document.createElement('div');
+            botMessageElem.classList.add('bot-message');
+            botMessageElem.textContent = getBotResponse(userMessage);
+            chatHistory.appendChild(botMessageElem);
+
+            // Scroll to the bottom of chat history
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }, 500);
+    }
+
+    // Function to get a bot response (simple logic for demonstration)
+    function getBotResponse(message) {
+        const responses = {
+            "hello": "Hi there! How can I assist you today?",
+            "agriculture": "Agriculture involves the cultivation of plants and livestock.",
+            "crypto": "Cryptocurrency is a digital or virtual currency that uses cryptography for security.",
+            "technology": "Technology refers to the application of scientific knowledge for practical purposes."
+        };
+        return responses[message.toLowerCase()] || "I'm sorry, I don't have an answer for that.";
+    }
+
+    // Event listener for sending messages
+    sendChatBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    // Hide chatbot when clicking outside
+    document.addEventListener('click', () => {
+        chatbotDropdown.classList.remove('show');
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Chatbot Variables
+    const chatBotLink = document.getElementById('chatBotLink');
+    const chatbotDropdown = document.getElementById('chatbotDropdown');
+    const closeChatbotBtn = document.getElementById('closeChatbot');
+    const sendChatBtn = document.getElementById('sendChatBtn');
+    const chatInput = document.getElementById('chatInput');
+    const chatHistory = document.getElementById('chatHistory');
+
+    // Hide chatbot on load
+    chatbotDropdown.style.display = 'none';
+
+    // Function to show the chatbot
+    function showChatbot() {
+        console.log("Showing chatbot");
+        chatbotDropdown.style.display = 'block';
+    }
+
+    // Function to hide the chatbot
+    function hideChatbot() {
+        console.log("Hiding chatbot");
+        chatbotDropdown.style.display = 'none';
+    }
+
+    // Show chatbot when the Chat Bot link (or icon) is clicked
+    chatBotLink.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the default anchor link behavior
+        console.log("Chat Bot link clicked");
+        showChatbot();
+    });
+
+    // Hide chatbot when the close button is clicked
+    closeChatbotBtn.addEventListener('click', function() {
+        console.log("Close button clicked");
+        hideChatbot();
+    });
+
+    // Send message function
+    function sendMessage() {
+        const userMessage = chatInput.value.trim();
+        if (userMessage === '') return; // Do not send empty messages
+
+        // Create user message element
+        const userMessageElement = document.createElement('div');
+        userMessageElement.classList.add('user-message');
+        userMessageElement.textContent = userMessage;
+        chatHistory.appendChild(userMessageElement);
+
+        // Clear the input field
+        chatInput.value = '';
+
+        // Scroll to the bottom of the chat history
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+
+        // Display a response from Kotana (basic simulation)
+        setTimeout(() => {
+            const botResponseElement = document.createElement('div');
+            botResponseElement.classList.add('bot-response');
+            botResponseElement.textContent = "Kotana: I'm here to assist you!";
+            chatHistory.appendChild(botResponseElement);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }, 1000); // Simulate a delay for the bot response
+    }
+
+    // Event listener for sending a message
+    sendChatBtn.addEventListener('click', sendMessage);
+
+    // Send message when the Enter key is pressed in the input field
+    chatInput.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+});
+
+// === Add Post Functionality ===
+    addPostBtn.addEventListener('click', () => {
+        togglePopup(postPopup);
+        closeAllPopupsExcept(postPopup);
+    });
+
+    submitPost.addEventListener('click', (e) => {
+        e.preventDefault();
+        const content = postText.value.trim();
+        if (content === '') {
+            alert('Please enter some content for your post.');
+            return;
+        }
+        createPost(content);
+        postText.value = '';
+        togglePopup(postPopup);
+    });
+
+    cancelPost.addEventListener('click', () => {
+        togglePopup(postPopup);
+    });
+
+    attachmentBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        attachmentOptions.classList.toggle('active');
+    });
+
+    // Close attachment options when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!attachmentOptions.contains(e.target) && e.target !== attachmentBtn) {
+            attachmentOptions.classList.remove('active');
+        }
+    });
+
+    function createPost(content) {
+        const postFeed = document.getElementById('postFeed');
+        const newPost = document.createElement('div');
+        newPost.classList.add('post', 'general'); // Default category
+
+        newPost.innerHTML = `
+            <div class="post-user">
+                <img src="Assets/user_default.jpg" alt="You">
+                <p>@You</p>
+            </div>
+            <div class="post-content">
+                <p>${escapeHTML(content)}</p>
+                <div class="post-reactions">
+                    <button class="like-btn">Like</button>
+                    <button class="comment-btn">Comment</button>
+                    <button class="share-btn">Share</button>
+                </div>
+            </div>
+        `;
+        postFeed.prepend(newPost);
+    }
+
+// === Go Live Functionality ===
+goLiveBtn.addEventListener('click', () => {
+    togglePopup(goLivePopup);
+    closeAllPopupsExcept(goLivePopup);
+});
+
+audioLiveBtn.addEventListener('click', () => {
+    goLiveOptions.classList.add('active');
+});
+
+videoLiveBtn.addEventListener('click', () => {
+    goLiveOptions.classList.add('active');
+});
+
+proceedLive.addEventListener('click', () => {
+    alert('Live session started!');
+    togglePopup(goLivePopup);
+    goLiveOptions.classList.remove('active');
+});
+
+cancelLive.addEventListener('click', () => {
+    togglePopup(goLivePopup);
+    goLiveOptions.classList.remove('active');
+});
+// === Live Now Functionality ===
+seeMoreLive.addEventListener('click', () => {
+    liveNow.classList.add('expanded');
+});
+
+closeSeeMore.addEventListener('click', () => {
+    liveNow.classList.remove('expanded');
+});
+
+
+// === Notifications Functionality ===
+// Notification Elements
+const notificationIcon = document.getElementById('notificationIcon');
+const notificationDropdown = document.getElementById('notificationDropdown');
+const filterButtons = notificationDropdown.querySelectorAll('.order-filter');
+const notificationsGroups = notificationDropdown.querySelectorAll('.notifications-group');
+notificationIcon.addEventListener('click', (e) => {
+    e.stopPropagation();
+    notificationDropdown.classList.toggle('active');
+});
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const type = button.getAttribute('data-type');
+        activateNotificationFilter(button, type);
+    });
+});
+
+function activateNotificationFilter(button, type) {
+    // Remove active class from all filter buttons
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+
+    // Add active class to the clicked button
+    button.classList.add('active');
+
+    // Hide all notification groups
+    notificationsGroups.forEach(group => {
+        group.classList.remove('active');
+    });
+
+    // Show the selected notification group
+    const selectedGroup = document.querySelector(`.notifications-group[data-type="${type}"]`);
+    if (selectedGroup) {
+        selectedGroup.classList.add('active');
+    }
+}
+
+// Close notifications when clicking outside
+document.addEventListener('click', (e) => {
+    if (!notificationDropdown.contains(e.target) && e.target !== notificationIcon) {
+        notificationDropdown.classList.remove('active');
+    }
+});
+// === Notifications Click Outside ===
+document.addEventListener('click', (e) => {
+    if (!notificationDropdown.contains(e.target) && e.target !== notificationIcon) {
+        notificationDropdown.classList.remove('active');
+    }
+});
+
+// === Status Updates Functionality ===
+    // Status Updates Swipe Functionality
+    let statusStartX;
+    let statusScrollLeft;
+
+    statusUpdatesSessions.addEventListener('mousedown', (e) => {
+        statusStartX = e.pageX - statusUpdatesSessions.offsetLeft;
+        statusScrollLeft = statusUpdatesSessions.scrollLeft;
+        statusUpdatesSessions.classList.add('active');
+    });
+
+    statusUpdatesSessions.addEventListener('mouseleave', () => {
+        statusUpdatesSessions.classList.remove('active');
+    });
+
+    statusUpdatesSessions.addEventListener('mouseup', () => {
+        statusUpdatesSessions.classList.remove('active');
+    });
+
+    statusUpdatesSessions.addEventListener('mousemove', (e) => {
+        if (!statusUpdatesSessions.classList.contains('active')) return;
+        e.preventDefault();
+        const x = e.pageX - statusUpdatesSessions.offsetLeft;
+        const walk = (x - statusStartX) * 2; //scroll-fast
+        statusUpdatesSessions.scrollLeft = statusScrollLeft - walk;
+        updateStatusDots();
+    });
+
+    // Touch events for mobile
+    statusUpdatesSessions.addEventListener('touchstart', (e) => {
+        statusStartX = e.touches[0].pageX - statusUpdatesSessions.offsetLeft;
+        statusScrollLeft = statusUpdatesSessions.scrollLeft;
+    });
+
+    statusUpdatesSessions.addEventListener('touchmove', (e) => {
+        const x = e.touches[0].pageX - statusUpdatesSessions.offsetLeft;
+        const walk = (x - statusStartX) * 2; //scroll-fast
+        statusUpdatesSessions.scrollLeft = statusScrollLeft - walk;
+        updateStatusDots();
+    });
+
+    function updateStatusDots() {
+        const scrollLeft = statusUpdatesSessions.scrollLeft;
+        const width = statusUpdatesSessions.scrollWidth - statusUpdatesSessions.clientWidth;
+        const scrollPercentage = (scrollLeft / width) * 100;
+        const dotIndex = Math.floor((scrollPercentage / 100) * statusDots.children.length);
+
+        statusDots.querySelectorAll('.dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === dotIndex);
+        });
+    }
+// === Live Now Swipe Functionality ===
+let liveStartX;
+let liveScrollLeft;
+
+liveSessions.addEventListener('mousedown', (e) => {
+    liveStartX = e.pageX - liveSessions.offsetLeft;
+    liveScrollLeft = liveSessions.scrollLeft;
+    liveSessions.classList.add('active');
+});
+
+liveSessions.addEventListener('mouseleave', () => {
+    liveSessions.classList.remove('active');
+});
+
+liveSessions.addEventListener('mouseup', () => {
+    liveSessions.classList.remove('active');
+});
+
+liveSessions.addEventListener('mousemove', (e) => {
+    if (!liveSessions.classList.contains('active')) return;
+    e.preventDefault();
+    const x = e.pageX - liveSessions.offsetLeft;
+    const walk = (x - liveStartX) * 2; //scroll-fast
+    liveSessions.scrollLeft = liveScrollLeft - walk;
+    updateLiveDots();
+});
+
+// Touch events for mobile
+liveSessions.addEventListener('touchstart', (e) => {
+    liveStartX = e.touches[0].pageX - liveSessions.offsetLeft;
+    liveScrollLeft = liveSessions.scrollLeft;
+});
+
+liveSessions.addEventListener('touchmove', (e) => {
+    const x = e.touches[0].pageX - liveSessions.offsetLeft;
+    const walk = (x - liveStartX) * 2; //scroll-fast
+    liveSessions.scrollLeft = liveScrollLeft - walk;
+    updateLiveDots();
+});
+
+function updateLiveDots() {
+    const scrollLeft = liveSessions.scrollLeft;
+    const width = liveSessions.scrollWidth - liveSessions.clientWidth;
+    const scrollPercentage = (scrollLeft / width) * 100;
+    const dotIndex = Math.floor((scrollPercentage / 100) * liveDots.children.length);
+
+    liveDots.querySelectorAll('.dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === dotIndex);
+    });
+}
+// === Notifications Click Outside ===
+document.addEventListener('click', (e) => {
+    if (!notificationDropdown.contains(e.target) && e.target !== notificationIcon) {
+        notificationDropdown.classList.remove('active');
+    }
+});
+
+// === Helper Functions ===
+function togglePopup(popup) {
+    popup.classList.toggle('active');
+}
+
+function closeAllPopupsExcept(popupToKeep) {
+    const popups = document.querySelectorAll('.popup, .go-live-popup');
+    popups.forEach(popup => {
+        if (popup !== popupToKeep) {
+            popup.classList.remove('active');
+        }
+    });
+}
+
+function escapeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// Function to toggle the submenu's visibility when a nav-link is clicked
+function toggleSubmenu(submenuId) {
+    const submenu = document.getElementById(submenuId);        // Get the submenu by ID
+    const parentLink = submenu.parentElement;                  // Get the parent nav-link element
+
+    // Close all other submenus
+    document.querySelectorAll('.submenu').forEach(menu => {
+        if (menu !== submenu) {
+            menu.style.display = 'none'; // Hide other submenus
+            menu.parentElement.classList.remove('active'); // Remove 'active' class from their parent
+        }
+    });
+
+    // Toggle the current submenu visibility
+    if (submenu.style.display === 'block') {
+        submenu.style.display = 'none'; // Close if already open
+        parentLink.classList.remove('active'); // Remove 'active' class from parent
+    } else {
+        submenu.style.display = 'block'; // Open the submenu
+        parentLink.classList.add('active'); // Add 'active' class to parent
+    }
+}
+
+// Add click event listeners for submenu links to set the active class
+document.querySelectorAll('.submenu a').forEach(link => {
+    link.addEventListener('click', function (e) {
+        // Remove 'active' class from all sublinks
+        document.querySelectorAll('.submenu a').forEach(sublink => sublink.classList.remove('active'));
+
+        // Add 'active' class to the clicked sublink
+        this.classList.add('active');
+        
+        // Stop the event from propagating up to the parent link to avoid closing the menu
+        e.stopPropagation();
+    });
+});
+
+// Close all submenus when clicking outside the sidebar (optional feature)
+document.addEventListener('click', function (e) {
+    const sidebar = document.querySelector('.nav-links');
+    if (!sidebar.contains(e.target)) {
+        // Hide all submenus when clicking outside the sidebar
+        document.querySelectorAll('.submenu').forEach(menu => {
+            menu.style.display = 'none';
+            menu.parentElement.classList.remove('active');
+        });
+    }
+});
+
+
+
+
+// Function to show a section by toggling the active section class
+function showSection(sectionId) {
+  // Hide all sections by removing the 'active-section' class
+  document.querySelectorAll('.section').forEach(section => {
+      section.classList.remove('active-section');
+  });
+
+  // Add the 'active-section' class to the selected section
+  const targetSection = document.getElementById(sectionId);
+  if (targetSection) {
+      targetSection.classList.add('active-section');
+  }
+
+  // Remove the 'active' class from all buttons
+  document.querySelectorAll('.section-buttons button').forEach(button => {
+      button.classList.remove('active');
+  });
+
+  // Add 'active' class to the clicked button
+  document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('active');
+}
+
+// Function to show the stake popup
+function showStakePopup(action, plan, amount) {
+  const modal = document.getElementById('stakeModal');
+  document.getElementById('stakeMessage').innerText = `${action}: ${plan} ($${amount})`;
+  openModal(modal);
+}
+
+// Function to show the extend popup
+function showExtendPopup(plan, duration) {
+  const modal = document.getElementById('extendModal');
+  document.getElementById('extendPlanName').innerText = `${plan} (${duration} Days)`;
+  openModal(modal);
+}
+
+// Function to show the end popup
+function showEndPopup(plan) {
+  const modal = document.getElementById('endModal');
+  document.getElementById('endPlanName').innerText = plan;
+  openModal(modal);
+}
+
+// Function to open the modal
+function openModal(modal) {
+  modal.style.display = 'flex';
+}
+
+// Function to close the modal
+function closeModal() {
+  document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
+}
+
+// Confirmation functions for modals
+function confirmStake() {
+  alert('Stake Confirmed!');
+  closeModal();
+}
+
+function confirmExtend() {
+  alert('Stake Extended!');
+  closeModal();
+}
+
+function confirmEnd() {
+  alert('Stake Ended!');
+  closeModal();
+}
+
+// Function to show the selected tab content
+function showTabContentById(tabId) {
+  // Hide all tab content sections
+  document.querySelectorAll('.tab-content').forEach(content => {
+      content.classList.remove('active');
+  });
+
+  // Show the target content by adding 'active' class
+  const tabContent = document.getElementById(tabId);
+  if (tabContent) {
+      tabContent.classList.add('active');
+  }
+}
+
+// Add event listener to each tab button to switch tabs
+document.querySelectorAll('.tab-button').forEach(button => {
+  button.addEventListener('click', () => {
+      // Remove 'active' class from all tab buttons
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+      // Add 'active' class to the clicked button
+      button.classList.add('active');
+
+      // Get the target tab content ID from the data-target attribute of the clicked button
+      const targetContentId = button.dataset.target;
+
+      // Show the content of the clicked tab
+      showTabContentById(targetContentId);
+  });
+});
+
+// Set the default section on page load
+window.addEventListener('DOMContentLoaded', () => {
+  // Set the default section to be "staking"
+  showSection('staking'); // Display the default "Staking" section
+});
+
+
+
+</script>
+<!-- External JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="charts.js"></script>
+<script src="nav.js"></script>
+<script src="Gm_Gn.js" defer></script>
+<script src="active.js"></script>
+<script src="message.js"></script>
+<script src="staking.js"></script>
+      
+</html>
